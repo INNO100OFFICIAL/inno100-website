@@ -58,7 +58,7 @@ export default function Contact() {
 
             <div id="contact-form" className="bg-white p-8 rounded-lg">
               <h2 className="text-3xl font-bold mb-8">Brand Inquiry Form</h2>
-              <form action="https://formspree.io/f/mzd1lpgj" method="POST" className="space-y-6">
+              <form action="https://formspree.io/f/mzdllgoj" method="POST" className="space-y-6">
                 <div>
                   <label className="block text-sm font-medium mb-2">Name</label>
                   <input
