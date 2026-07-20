@@ -89,6 +89,22 @@ export default function Contact() {
                 </div>
 
                 <div>
+                  <label className="block text-sm font-medium mb-2">Inquiry Type</label>
+                  <select
+                    name="inquiry_type"
+                    required
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-black"
+                  >
+                    <option value="">Select an option</option>
+                    <option value="Product Purchase">Product Purchase</option>
+                    <option value="Event Collaboration">Event Collaboration</option>
+                    <option value="Visit Reception">Visit Reception</option>
+                    <option value="Settlement Cooperation">Settlement Cooperation</option>
+                    <option value="Media Coverage">Media Coverage</option>
+                  </select>
+                </div>
+
+                <div>
                   <label className="block text-sm font-medium mb-2">Message</label>
                   <textarea
                     name="message"
