@@ -163,7 +163,7 @@ export default function Home() {
               </svg>
             </a>
             <a
-              href="#"
+              href="https://www.facebook.com/profile.php?id=1066676599854651"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center w-12 h-12 rounded-full glass-card"
