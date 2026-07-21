@@ -152,7 +152,7 @@ export default function Home() {
               </svg>
             </a>
             <a
-              href="#"
+              href="https://x.com/INNO100OFFICIAL"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center w-12 h-12 rounded-full glass-card"
