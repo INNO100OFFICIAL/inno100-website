@@ -10,11 +10,11 @@ const imageFiles = Array.from({ length: 123 }, (_, i) => {
   return num === 118 ? `${num}.jpeg` : `${num}.png`
 })
 
-const partners = Array.from({ length: 50 }, (_, i) => {
+const partners = Array.from({ length: 51 }, (_, i) => {
   const num = i + 1
   return {
     id: num,
-    image: `/images/partners/${num}${num === 50 ? '.jpg' : '.png'}`,
+    image: `/images/partners/${num}.png`,
   }
 })
 
