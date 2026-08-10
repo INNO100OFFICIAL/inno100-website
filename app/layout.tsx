@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import StructuredData from '@/components/StructuredData'
 
 export const metadata: Metadata = {
   title: 'INNO100 - Global Innovation Flagship Store',
@@ -16,6 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <StructuredData />
         <Navbar />
         <main>
           {children}
