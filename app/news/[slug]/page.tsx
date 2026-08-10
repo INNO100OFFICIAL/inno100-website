@@ -3,6 +3,15 @@ import Link from 'next/link'
 import { getArticleBySlug, getArticleSlugs, getAllArticles } from '@/lib/articles'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 
+const SITE_URL = 'https://inno100.ai'
+
+// Turn a possibly-relative image path into an absolute URL, required for
+// Open Graph / Twitter cards and Article JSON-LD image fields.
+function absoluteUrl(path?: string): string | undefined {
+  if (!path) return undefined
+  return path.startsWith('http') ? path : `${SITE_URL}${path}`
+}
+
 interface Props {
   params: Promise<{
     slug: string
@@ -26,24 +35,35 @@ export async function generateMetadata({ params }: Props) {
     }
   }
 
+  const canonicalUrl = `${SITE_URL}/news/${article.slug}`
+  const ogImage = absoluteUrl(article.image)
+
   return {
     title: `${article.title} | INNO100`,
     description: article.description,
     keywords: article.keywords.join(', '),
     authors: article.author ? [{ name: article.author }] : [],
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: {
       title: article.title,
       description: article.description,
       type: 'article',
+      url: canonicalUrl,
+      siteName: 'INNO100',
       publishedTime: article.publishedAt,
+      modifiedTime: article.updatedAt || article.publishedAt,
       authors: article.author ? [article.author] : [],
-      images: article.image ? [{ url: article.image, alt: article.imageAlt }] : [],
+      images: ogImage
+        ? [{ url: ogImage, alt: article.imageAlt || article.title }]
+        : [],
     },
     twitter: {
       card: 'summary_large_image',
       title: article.title,
       description: article.description,
-      images: article.image ? [article.image] : [],
+      images: ogImage ? [ogImage] : [],
     },
   }
 }
@@ -58,8 +78,41 @@ export default async function ArticlePage({ params }: Props) {
     notFound()
   }
 
+  const canonicalUrl = `${SITE_URL}/news/${article.slug}`
+  const ogImage = absoluteUrl(article.image)
+
+  // Article JSON-LD (Schema.org) for this specific post.
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.title,
+    description: article.description,
+    datePublished: article.publishedAt,
+    dateModified: article.updatedAt || article.publishedAt,
+    ...(article.author && {
+      author: { '@type': 'Organization', name: article.author },
+    }),
+    publisher: {
+      '@type': 'Organization',
+      name: 'INNO100',
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_URL}/images/logo.png`,
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': canonicalUrl,
+    },
+    ...(ogImage && { image: [ogImage] }),
+  }
+
   return (
     <div className="pt-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       <section className="py-12 bg-white px-4">
         <div className="max-w-3xl mx-auto text-center">
           <nav className="text-sm text-gray-500 mb-6">

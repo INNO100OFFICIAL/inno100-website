@@ -1,9 +1,26 @@
 import Link from 'next/link'
 import { getAllArticles } from '@/lib/articles'
 
+const SITE_URL = 'https://inno100.ai'
+
 export const metadata = {
   title: 'News | INNO100',
   description: 'Original stories, features, and updates from INNO100 — the Global Innovation Flagship Store in Shenzhen.',
+  alternates: {
+    canonical: `${SITE_URL}/news`,
+  },
+  openGraph: {
+    title: 'News | INNO100',
+    description: 'Original stories, features, and updates from INNO100 — the Global Innovation Flagship Store in Shenzhen.',
+    type: 'website',
+    url: `${SITE_URL}/news`,
+    siteName: 'INNO100',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'News | INNO100',
+    description: 'Original stories, features, and updates from INNO100 — the Global Innovation Flagship Store in Shenzhen.',
+  },
 }
 
 export default function NewsPage() {
