@@ -15,6 +15,7 @@ export default function Footer() {
               <li><a href="/about" className="hover:text-white transition">About Us</a></li>
               <li><a href="/menu" className="hover:text-white transition">Menu</a></li>
               <li><a href="/media" className="hover:text-white transition">Media Centre</a></li>
+              <li><a href="/news" className="hover:text-white transition">News</a></li>
               <li><a href="/contact" className="hover:text-white transition">Contact Us</a></li>
             </ul>
           </div>
