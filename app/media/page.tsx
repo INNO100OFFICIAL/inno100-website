@@ -252,6 +252,14 @@ export default function Media() {
       excerpt: 'In-depth look at how INNO100 exemplifies Shenzhen\'s thriving first-store economy and tech retail innovation.',
       image: '/images/media/31.png',
     },
+    {
+      id: 32,
+      title: 'Shenzhen\'s Tech Spaces Become Popular Destinations for International Visitors',
+      date: '2026-08-12',
+      source: 'Xinhua News Agency (Xinhua Viewpoint)',
+      excerpt: 'A wave of "tech shopping" is sweeping the Guangdong-Hong Kong-Macao Greater Bay Area, with robotics experience centers, AI product flagship stores, and drone shops becoming popular check-in spots for foreign tourists in Shenzhen. INNO100\'s Global Innovation Flagship Store is featured as one of the representative scenes in the report.',
+      image: '/images/media/32.png',
+    },
   ]
 
   return (
