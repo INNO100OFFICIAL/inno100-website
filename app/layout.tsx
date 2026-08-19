@@ -4,6 +4,7 @@ import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import StructuredData from '@/components/StructuredData'
+import AIReferrerTracker from '@/components/AIReferrerTracker'
 
 const GA_MEASUREMENT_ID = 'G-854QE2CJWH'
 
@@ -33,6 +34,7 @@ export default function RootLayout({
           `}
         </Script>
         <StructuredData />
+        <AIReferrerTracker />
         <Navbar />
         <main>
           {children}
