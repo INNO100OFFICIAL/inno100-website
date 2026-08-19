@@ -1,3 +1,17 @@
+'use client'
+
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void
+  }
+}
+
+function trackEvent(eventName: string, params?: Record<string, unknown>) {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', eventName, params)
+  }
+}
+
 export default function Contact() {
   return (
     <div className="pt-16">
@@ -40,7 +54,11 @@ export default function Contact() {
                   <p className="text-gray-600 mb-4">
                     Interested in featuring your product at INNO100? We'd love to hear from you.
                   </p>
-                  <a href="#contact-form" className="text-black font-medium hover:text-gray-600 transition">
+                  <a
+                    href="#contact-form"
+                    onClick={() => trackEvent('cta_click', { cta_name: 'submit_inquiry_link' })}
+                    className="text-black font-medium hover:text-gray-600 transition"
+                  >
                     Submit Your Inquiry →
                   </a>
                 </div>
@@ -48,9 +66,33 @@ export default function Contact() {
                 <div>
                   <h3 className="font-semibold text-lg mb-2">Follow Us</h3>
                   <div className="flex gap-4">
-                    <a href="#" className="text-gray-600 hover:text-black transition">Instagram</a>
-                    <a href="#" className="text-gray-600 hover:text-black transition">WeChat</a>
-                    <a href="#" className="text-gray-600 hover:text-black transition">LinkedIn</a>
+                    <a
+                      href="https://www.instagram.com/inno100_official/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackEvent('social_click', { social_network: 'instagram' })}
+                      className="text-gray-600 hover:text-black transition"
+                    >
+                      Instagram
+                    </a>
+                    <a
+                      href="https://x.com/INNO100OFFICIAL"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackEvent('social_click', { social_network: 'x' })}
+                      className="text-gray-600 hover:text-black transition"
+                    >
+                      X
+                    </a>
+                    <a
+                      href="https://www.linkedin.com/company/inno100-store/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackEvent('social_click', { social_network: 'linkedin' })}
+                      className="text-gray-600 hover:text-black transition"
+                    >
+                      LinkedIn
+                    </a>
                   </div>
                 </div>
               </div>
@@ -58,7 +100,12 @@ export default function Contact() {
 
             <div id="contact-form" className="bg-white p-8 rounded-lg">
               <h2 className="text-3xl font-bold mb-8">Brand Inquiry Form</h2>
-              <form action="https://formspree.io/f/mzdllgoj" method="POST" className="space-y-6">
+              <form
+                action="https://formspree.io/f/mzdllgoj"
+                method="POST"
+                className="space-y-6"
+                onSubmit={() => trackEvent('form_submit', { form_name: 'brand_inquiry' })}
+              >
                 <div>
                   <label className="block text-sm font-medium mb-2">Name</label>
                   <input

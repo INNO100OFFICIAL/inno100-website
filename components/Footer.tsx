@@ -1,3 +1,17 @@
+'use client'
+
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void
+  }
+}
+
+function trackSocialClick(network: string) {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', 'social_click', { social_network: network })
+  }
+}
+
 export default function Footer() {
   const currentYear = new Date().getFullYear()
 
@@ -24,9 +38,9 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4 text-sm">Follow Us</h4>
             <ul className="space-y-2 text-sm text-gray-400">
-              <li><a href="https://www.instagram.com/inno100_official/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Instagram</a></li>
-              <li><a href="https://x.com/INNO100OFFICIAL" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">X</a></li>
-              <li><a href="https://www.linkedin.com/company/inno100-store/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">LinkedIn</a></li>
+              <li><a href="https://www.instagram.com/inno100_official/" target="_blank" rel="noopener noreferrer" onClick={() => trackSocialClick('instagram')} className="hover:text-white transition">Instagram</a></li>
+              <li><a href="https://x.com/INNO100OFFICIAL" target="_blank" rel="noopener noreferrer" onClick={() => trackSocialClick('x')} className="hover:text-white transition">X</a></li>
+              <li><a href="https://www.linkedin.com/company/inno100-store/" target="_blank" rel="noopener noreferrer" onClick={() => trackSocialClick('linkedin')} className="hover:text-white transition">LinkedIn</a></li>
             </ul>
           </div>
           <div>
