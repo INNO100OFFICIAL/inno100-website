@@ -19,7 +19,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }))
 
   // One entry per /news/[slug] article, using its published/updated date.
-  const articleRoutes = getAllArticles().map(article => ({
+  // External-link articles have no detail page on this site, so they're excluded.
+  const articleRoutes = getAllArticles()
+    .filter(article => !article.externalUrl)
+    .map(article => ({
     url: `${SITE_URL}/news/${article.slug}`,
     lastModified: new Date(article.updatedAt || article.publishedAt),
     changeFrequency: 'monthly' as const,

@@ -20,9 +20,11 @@ interface Props {
 
 export async function generateStaticParams() {
   const slugs = getArticleSlugs()
-  return slugs.map(slug => ({
-    slug,
-  }))
+  return slugs
+    .filter(slug => !getArticleBySlug(slug)?.externalUrl)
+    .map(slug => ({
+      slug,
+    }))
 }
 
 export async function generateMetadata({ params }: Props) {
@@ -74,7 +76,7 @@ export default async function ArticlePage({ params }: Props) {
   const allArticles = getAllArticles()
   const relatedArticles = allArticles.filter(a => a.slug !== slug).slice(0, 3)
 
-  if (!article) {
+  if (!article || article.externalUrl) {
     notFound()
   }
 

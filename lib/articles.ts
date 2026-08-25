@@ -10,11 +10,14 @@ export interface Article {
   description: string
   keywords: string[]
   author?: string
+  source?: string
   publishedAt: string
   updatedAt?: string
   image?: string
+  imageFeatured?: string
   imageAlt?: string
   content: string
+  externalUrl?: string
   relatedLinks?: Array<{
     title: string
     href: string
@@ -45,11 +48,14 @@ export function getArticleBySlug(slug: string): Article | null {
     description: data.description || '',
     keywords: data.keywords || [],
     author: data.author,
+    source: data.source,
     publishedAt: data.publishedAt || new Date().toISOString(),
     updatedAt: data.updatedAt,
     image: data.image,
+    imageFeatured: data.imageFeatured,
     imageAlt: data.imageAlt,
     content,
+    externalUrl: data.externalUrl,
     relatedLinks: data.relatedLinks,
   }
 }
