@@ -276,7 +276,7 @@ export default function Media() {
       excerpt: 'On overseas social platforms, "China Travel" remains a hot topic, with the "Chinamaxxing" hashtag surpassing 4 billion views. "Made-in-China products are compelling enough that many inbound tourists add AI glasses, phones, and home appliances to their shopping lists." Foreign tourists are seen selecting AI sports camera glasses at INNO100\'s Global Innovation Flagship Store in Shenzhen.',
       image: '/images/media/34.png',
     },
-  ]
+  ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
   return (
     <div className="pt-16">
