@@ -260,6 +260,22 @@ export default function Media() {
       excerpt: 'A wave of "tech shopping" is sweeping the Guangdong-Hong Kong-Macao Greater Bay Area, with robotics experience centers, AI product flagship stores, and drone shops becoming popular check-in spots for foreign tourists in Shenzhen. INNO100\'s Global Innovation Flagship Store is featured as one of the representative scenes in the report.',
       image: '/images/media/32.png',
     },
+    {
+      id: 33,
+      title: 'Strategic Emerging Industries Drive Over 60% of GDP as Nanshan Hands the Baton to AI',
+      date: '2026-08-25',
+      source: 'SFC (South Finance Channel)',
+      excerpt: 'Nanshan\'s trillion-yuan consumer economy is finding real-world scenarios. In recent years, a wave of tech flagship stores has landed in Nanshan, including INNO100 — Kickstarter\'s first officially authorized store in China. Inside, novelty tech products like stringless guitars, robot dogs, and AI tennis robots draw over a hundred foreign visitors daily, with more than 60% staying over an hour. As the report notes, these stores are "no longer simple points of sale, but gateways for global innovation products entering everyday life."',
+      image: '/images/media/33.png',
+    },
+    {
+      id: 34,
+      title: 'Why Is "Inbound Tourism" Booming This Summer?',
+      date: '2026-08-21',
+      source: 'Science and Technology Daily (STDaily)',
+      excerpt: 'On overseas social platforms, "China Travel" remains a hot topic, with the "Chinamaxxing" hashtag surpassing 4 billion views. "Made-in-China products are compelling enough that many inbound tourists add AI glasses, phones, and home appliances to their shopping lists." Foreign tourists are seen selecting AI sports camera glasses at INNO100\'s Global Innovation Flagship Store in Shenzhen.',
+      image: '/images/media/34.png',
+    },
   ]
 
   return (
