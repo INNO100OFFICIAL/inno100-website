@@ -39,7 +39,9 @@ export const metadata = {
 }
 
 export default function NewsPage() {
-  const articles = getAllArticles()
+  const articles = getAllArticles().filter(
+    article => article.slug !== 'where-ai-leaves-screen-inno100'
+  )
 
   return (
     <div className="pt-16">
@@ -48,9 +50,6 @@ export default function NewsPage() {
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
             News
           </h1>
-          <p className="text-lg text-gray-600">
-            Original stories and features from INNO100.
-          </p>
         </div>
       </section>
 
