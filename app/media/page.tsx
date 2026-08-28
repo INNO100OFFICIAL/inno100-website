@@ -1,6 +1,43 @@
-'use client'
-
 import Image from 'next/image'
+import Link from 'next/link'
+import { getArticleBySlug, type Article } from '@/lib/articles'
+
+const SITE_URL = 'https://inno100.ai'
+
+function ArticleLink({ article, className, children }: { article: Article; className?: string; children: React.ReactNode }) {
+  if (article.externalUrl) {
+    return (
+      <a href={article.externalUrl} target="_blank" rel="noopener noreferrer" className={className}>
+        {children}
+      </a>
+    )
+  }
+  return (
+    <Link href={`/news/${article.slug}`} className={className}>
+      {children}
+    </Link>
+  )
+}
+
+export const metadata = {
+  title: 'Media Centre | INNO100',
+  description: 'Media coverage and press mentions of INNO100 — the Global Innovation Flagship Store in Shenzhen — from Xinhua, People\'s Daily, 21st Century Business Herald, and more.',
+  alternates: {
+    canonical: `${SITE_URL}/media`,
+  },
+  openGraph: {
+    title: 'Media Centre | INNO100',
+    description: 'Media coverage and press mentions of INNO100 — the Global Innovation Flagship Store in Shenzhen — from Xinhua, People\'s Daily, 21st Century Business Herald, and more.',
+    type: 'website',
+    url: `${SITE_URL}/media`,
+    siteName: 'INNO100',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Media Centre | INNO100',
+    description: 'Media coverage and press mentions of INNO100 — the Global Innovation Flagship Store in Shenzhen — from Xinhua, People\'s Daily, 21st Century Business Herald, and more.',
+  },
+}
 
 export default function Media() {
   const articles = [
@@ -278,18 +315,90 @@ export default function Media() {
     },
   ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
+  const mediaJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Media Centre | INNO100',
+    description: 'Media coverage and press mentions of INNO100 — the Global Innovation Flagship Store in Shenzhen.',
+    url: `${SITE_URL}/media`,
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: articles.map((article, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        item: {
+          '@type': 'NewsArticle',
+          headline: article.title,
+          datePublished: article.date,
+          description: article.excerpt,
+          image: `${SITE_URL}${article.image}`,
+          publisher: {
+            '@type': 'Organization',
+            name: article.source,
+          },
+          about: {
+            '@type': 'Organization',
+            name: 'INNO100',
+          },
+        },
+      })),
+    },
+  }
+
+  const featured = getArticleBySlug('where-ai-leaves-screen-inno100')
+
   return (
     <div className="pt-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(mediaJsonLd) }}
+      />
       <section className="py-12 bg-white px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
             Media Centre
           </h1>
-          <p className="text-lg text-gray-600">
-            Latest news and coverage about INNO100
-          </p>
         </div>
       </section>
+
+      {featured && (
+        <section className="bg-white px-4 pb-12">
+          <div className="max-w-7xl mx-auto">
+            <ArticleLink article={featured} className="block">
+              <article className="grid md:grid-cols-[65%_35%] gap-8 items-center group">
+                {(featured.imageFeatured || featured.image) && (
+                  <div className="w-full aspect-[16/10] bg-gray-100 overflow-hidden rounded-lg">
+                    <img
+                      src={featured.imageFeatured || featured.image}
+                      alt={featured.imageAlt || featured.title}
+                      className="w-full h-full object-cover group-hover:scale-[1.02] transition duration-300"
+                    />
+                  </div>
+                )}
+                <div>
+                  <p className="text-sm text-gray-500 mb-3">
+                    {new Date(featured.publishedAt).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })}
+                    {featured.source && ` · ${featured.source}`}
+                  </p>
+                  <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-4 text-black group-hover:text-[#2B7A8F] transition">
+                    {featured.title}
+                  </h2>
+                  <p className="text-gray-600 leading-relaxed mb-6 line-clamp-4">
+                    {featured.description}
+                  </p>
+                  <span className="font-medium" style={{ color: '#2B7A8F' }}>
+                    {featured.externalUrl ? 'Read on LinkedIn ↗' : 'Read more →'}
+                  </span>
+                </div>
+              </article>
+            </ArticleLink>
+          </div>
+        </section>
+      )}
 
       <section className="py-12 bg-gray-50 px-4">
         <div className="max-w-7xl mx-auto">
