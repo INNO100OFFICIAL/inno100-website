@@ -19,13 +19,13 @@ function ArticleLink({ article, className, children }: { article: Article; class
 }
 
 export const metadata = {
-  title: 'News | INNO100',
+  title: 'Latest Updates | INNO100',
   description: 'Original stories, features, and updates from INNO100 — the Global Innovation Flagship Store in Shenzhen.',
   alternates: {
     canonical: `${SITE_URL}/news`,
   },
   openGraph: {
-    title: 'News | INNO100',
+    title: 'Latest Updates | INNO100',
     description: 'Original stories, features, and updates from INNO100 — the Global Innovation Flagship Store in Shenzhen.',
     type: 'website',
     url: `${SITE_URL}/news`,
@@ -33,7 +33,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'News | INNO100',
+    title: 'Latest Updates | INNO100',
     description: 'Original stories, features, and updates from INNO100 — the Global Innovation Flagship Store in Shenzhen.',
   },
 }
@@ -48,7 +48,7 @@ export default function NewsPage() {
       <section className="py-12 bg-white px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            News
+            Latest Updates
           </h1>
         </div>
       </section>

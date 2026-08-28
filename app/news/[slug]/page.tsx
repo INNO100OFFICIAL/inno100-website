@@ -119,12 +119,12 @@ export default async function ArticlePage({ params }: Props) {
         <div className="max-w-3xl mx-auto text-center">
           <nav className="text-sm text-gray-500 mb-6">
             <Link href="/news" className="hover:text-gray-900 transition">
-              News
+              Latest Updates
             </Link>
           </nav>
 
           <p className="text-sm font-bold uppercase tracking-widest mb-4" style={{ color: '#2B7A8F' }}>
-            News
+            Latest Updates
           </p>
 
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-black">

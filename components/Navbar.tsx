@@ -33,7 +33,7 @@ export default function Navbar() {
               Media Centre
             </Link>
             <Link href="/news" className="text-sm hover:text-gray-600 transition">
-              News
+              Latest Updates
             </Link>
             <Link href="/contact" className="text-sm hover:text-gray-600 transition">
               Contact Us
@@ -59,7 +59,7 @@ export default function Navbar() {
             <Link href="/about" className="block py-2 text-sm">About Us</Link>
             <Link href="/menu" className="block py-2 text-sm">Menu</Link>
             <Link href="/media" className="block py-2 text-sm">Media Centre</Link>
-            <Link href="/news" className="block py-2 text-sm">News</Link>
+            <Link href="/news" className="block py-2 text-sm">Latest Updates</Link>
             <Link href="/contact" className="block py-2 text-sm">Contact Us</Link>
           </div>
         )}
