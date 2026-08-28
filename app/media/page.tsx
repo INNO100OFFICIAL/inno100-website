@@ -327,12 +327,12 @@ export default function Media() {
         '@type': 'ListItem',
         position: index + 1,
         item: {
-          '@type': 'NewsArticle',
+          '@type': 'CreativeWork',
           headline: article.title,
           datePublished: article.date,
           description: article.excerpt,
           image: `${SITE_URL}${article.image}`,
-          publisher: {
+          creator: {
             '@type': 'Organization',
             name: article.source,
           },
