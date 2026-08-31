@@ -313,6 +313,14 @@ export default function Media() {
       excerpt: 'On overseas social platforms, "China Travel" remains a hot topic, with the "Chinamaxxing" hashtag surpassing 4 billion views. "Made-in-China products are compelling enough that many inbound tourists add AI glasses, phones, and home appliances to their shopping lists." Foreign tourists are seen selecting AI sports camera glasses at INNO100\'s Global Innovation Flagship Store in Shenzhen.',
       image: '/images/media/34.png',
     },
+    {
+      id: 35,
+      title: 'Defining a New Era of Physical AI: Strutt EV1 Smart Mobility Robot Lands at Shenzhen Bay INNO100',
+      date: '2026-08-31',
+      source: 'Leiphone',
+      excerpt: 'Robotics company Strutt held the China offline debut of its flagship Strutt EV1 smart mobility robot at INNO100\'s Global Innovation Flagship Store in Shenzhen Bay. The demo unit is now on display at the store, open to the public for hands-on viewing and test rides.',
+      image: '/images/media/35.jpg',
+    },
   ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
   const mediaJsonLd = {
