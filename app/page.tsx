@@ -134,9 +134,22 @@ export default function Home() {
             <p className="text-lg md:text-xl text-gray-700 mb-4 max-w-2xl mx-auto">
               Kickstarter's first authorized offline retail experience in China
             </p>
-            <p className="text-xl md:text-2xl font-light text-gray-900 mb-12">
+            <p className="text-xl md:text-2xl font-light text-gray-900 mb-8">
               Ideas Matter
             </p>
+          </div>
+
+          {/* Stats wall */}
+          <div className="hero-content mb-10" style={{ animationDelay: '0.15s' }}>
+            <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm md:text-base text-gray-800">
+              <span className="font-medium">512,780+ Visitors</span>
+              <span className="text-gray-400" aria-hidden="true">·</span>
+              <span className="font-medium">100+ Daily International Guests</span>
+              <span className="text-gray-400" aria-hidden="true">·</span>
+              <span className="font-medium">1,100㎡</span>
+              <span className="text-gray-400" aria-hidden="true">·</span>
+              <span className="font-medium">112+ Global Brands</span>
+            </div>
           </div>
 
           <div className="hero-content flex justify-center gap-4 mb-8" style={{ animationDelay: '0.2s' }}>
@@ -188,16 +201,16 @@ export default function Home() {
 
           <div className="hero-content flex flex-col sm:flex-row gap-4 justify-center" style={{ animationDelay: '0.3s' }}>
             <a
-              href="/about"
+              href="/visit"
               className="button-primary"
             >
-              Learn More
+              Plan Your China Tech Visit
             </a>
             <a
               href="/contact"
               className="button-secondary"
             >
-              Get in Touch
+              Partner With INNO100
             </a>
           </div>
         </div>
@@ -276,15 +289,9 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6">
               Ready to Explore Innovation?
             </h2>
-            <p className="text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-700 max-w-2xl mx-auto">
               Visit us at Shenzhen Bay Culture Square and experience the future of consumer technology.
             </p>
-            <a
-              href="/contact"
-              className="button-primary"
-            >
-              Plan Your Visit
-            </a>
           </div>
         </div>
       </section>

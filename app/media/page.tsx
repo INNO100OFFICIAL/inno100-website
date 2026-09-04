@@ -439,29 +439,6 @@ export default function Media() {
           </div>
         </div>
       </section>
-
-      <section className="py-20 bg-black text-white px-4">
-        <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-6">Stay Updated</h2>
-          <p className="text-xl text-gray-300 mb-8">
-            Subscribe to our newsletter for the latest news and updates from INNO100.
-          </p>
-          <form className="flex gap-4">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-4 py-3 rounded-lg text-black"
-              required
-            />
-            <button
-              type="submit"
-              className="px-8 py-3 bg-white text-black rounded-lg hover:bg-gray-200 transition font-medium"
-            >
-              Subscribe
-            </button>
-          </form>
-        </div>
-      </section>
     </div>
   )
 }

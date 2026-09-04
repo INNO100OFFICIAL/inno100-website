@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '',            // Home
     '/about',      // About Us
     '/menu',       // Menu
+    '/visit',      // Plan Your China Tech Visit
     '/media',      // Media Centre
     '/contact',    // Contact Us
     '/news',       // News list
