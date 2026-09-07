@@ -85,7 +85,7 @@ export default function Contact() {
                       X
                     </a>
                     <a
-                      href="https://www.linkedin.com/company/inno100-store/"
+                      href="https://www.linkedin.com/company/inno100-store"
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => trackEvent('social_click', { social_network: 'linkedin' })}

@@ -23,9 +23,11 @@ const structuredData = {
         email: 'brand@inno100.group',
       },
       sameAs: [
-        'https://www.linkedin.com/company/inno100-store/',
+        'https://www.linkedin.com/company/inno100-store',
         'https://www.instagram.com/inno100_official/',
         'https://x.com/INNO100OFFICIAL',
+        'https://www.facebook.com/profile.php?id=1066676599854651',
+        'https://www.reddit.com/user/INNO100-OFFICIAL/',
       ],
     },
     {
@@ -71,9 +73,11 @@ const structuredData = {
         },
       ],
       sameAs: [
-        'https://www.linkedin.com/company/inno100-store/',
+        'https://www.linkedin.com/company/inno100-store',
         'https://www.instagram.com/inno100_official/',
         'https://x.com/INNO100OFFICIAL',
+        'https://www.facebook.com/profile.php?id=1066676599854651',
+        'https://www.reddit.com/user/INNO100-OFFICIAL/',
       ],
     },
   ],

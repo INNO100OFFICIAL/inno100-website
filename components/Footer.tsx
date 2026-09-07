@@ -40,7 +40,9 @@ export default function Footer() {
             <ul className="space-y-2 text-sm text-gray-400">
               <li><a href="https://www.instagram.com/inno100_official/" target="_blank" rel="noopener noreferrer" onClick={() => trackSocialClick('instagram')} className="hover:text-white transition">Instagram</a></li>
               <li><a href="https://x.com/INNO100OFFICIAL" target="_blank" rel="noopener noreferrer" onClick={() => trackSocialClick('x')} className="hover:text-white transition">X</a></li>
-              <li><a href="https://www.linkedin.com/company/inno100-store/" target="_blank" rel="noopener noreferrer" onClick={() => trackSocialClick('linkedin')} className="hover:text-white transition">LinkedIn</a></li>
+              <li><a href="https://www.facebook.com/profile.php?id=1066676599854651" target="_blank" rel="noopener noreferrer" onClick={() => trackSocialClick('facebook')} className="hover:text-white transition">Facebook</a></li>
+              <li><a href="https://www.linkedin.com/company/inno100-store" target="_blank" rel="noopener noreferrer" onClick={() => trackSocialClick('linkedin')} className="hover:text-white transition">LinkedIn</a></li>
+              <li><a href="https://www.reddit.com/user/INNO100-OFFICIAL/" target="_blank" rel="noopener noreferrer" onClick={() => trackSocialClick('reddit')} className="hover:text-white transition">Reddit</a></li>
             </ul>
           </div>
           <div>
