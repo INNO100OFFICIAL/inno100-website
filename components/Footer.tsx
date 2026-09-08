@@ -29,7 +29,7 @@ export default function Footer() {
             <h4 className="font-semibold mb-4 text-sm">Navigation</h4>
             <ul className="space-y-2 text-sm text-gray-400">
               <li><a href="/about" className="hover:text-white transition">About Us</a></li>
-              <li><a href="/menu" className="hover:text-white transition">Menu</a></li>
+              <li><a href="/menu" className="hover:text-white transition">Explore Products</a></li>
               <li><a href="/media" className="hover:text-white transition">Media Centre</a></li>
               <li><a href="/news" className="hover:text-white transition">Latest Updates</a></li>
               <li><a href="/contact" className="hover:text-white transition">Contact Us</a></li>

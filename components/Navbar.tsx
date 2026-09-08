@@ -27,7 +27,7 @@ export default function Navbar() {
               About Us
             </Link>
             <Link href="/menu" className="text-sm hover:text-gray-600 transition">
-              Menu
+              Explore Products
             </Link>
             <Link href="/visit" className="text-sm hover:text-gray-600 transition">
               Visit
@@ -60,7 +60,7 @@ export default function Navbar() {
         {isOpen && (
           <div className="md:hidden py-4 border-t">
             <Link href="/about" className="block py-2 text-sm">About Us</Link>
-            <Link href="/menu" className="block py-2 text-sm">Menu</Link>
+            <Link href="/menu" className="block py-2 text-sm">Explore Products</Link>
             <Link href="/visit" className="block py-2 text-sm">Visit</Link>
             <Link href="/media" className="block py-2 text-sm">Media Centre</Link>
             <Link href="/news" className="block py-2 text-sm">Latest Updates</Link>
