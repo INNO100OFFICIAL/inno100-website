@@ -12,6 +12,9 @@ const LNG = 113.94034
 // Google Maps for international visitors, Amap for anyone already on a
 // China mobile network. Amap takes longitude before latitude.
 const GOOGLE_MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${LAT},${LNG}`
+// Apple Maps opens natively on iOS and is backed by Amap data inside
+// mainland China, so it resolves for visitors on either network.
+const APPLE_MAPS_URL = `https://maps.apple.com/?ll=${LAT},${LNG}&q=INNO100`
 const AMAP_URL = `https://uri.amap.com/marker?position=${LNG},${LAT}&name=INNO100`
 
 const FAQS = [
@@ -114,6 +117,14 @@ export default function Visit() {
                       className="text-sm px-4 py-2 border border-gray-300 rounded hover:border-black transition"
                     >
                       Open in Google Maps
+                    </a>
+                    <a
+                      href={APPLE_MAPS_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm px-4 py-2 border border-gray-300 rounded hover:border-black transition"
+                    >
+                      Open in Apple Maps
                     </a>
                     <a
                       href={AMAP_URL}
