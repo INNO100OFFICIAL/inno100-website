@@ -27,12 +27,24 @@ const FAQS = [
     a: 'Every day from 10:00 AM to 10:00 PM, weekends and public holidays included.',
   },
   {
+    q: 'Is there an admission fee?',
+    a: 'No. Admission to INNO100 is free.',
+  },
+  {
+    q: 'Do I need to book in advance?',
+    a: 'No booking required — you can walk straight in during opening hours. If you do fill in the Book Your Visit form above, we will email you a visitor guide before you arrive.',
+  },
+  {
     q: 'How long should I plan for a visit?',
     a: 'Plan for at least an hour. More than 60 percent of our visitors stay longer than an hour once they start trying things out.',
   },
   {
     q: 'What can I actually try in the store?',
     a: 'Over 112 global brands across 1,100 square metres, including hands-on innovations like a string-less guitar, robot dogs and an AI tennis robot. New arrivals land every week, so the floor looks different month to month.',
+  },
+  {
+    q: 'Is there English-language help in the store?',
+    a: 'Yes. We have English-speaking staff on the floor, and every product label and price tag is bilingual. If you would like dedicated English assistance for your visit, add a note in the Book Your Visit form above and someone will get in touch.',
   },
   {
     q: 'Is INNO100 a good stop for international visitors?',
