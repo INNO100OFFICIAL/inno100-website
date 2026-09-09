@@ -6,24 +6,14 @@ const SITE_URL = 'https://inno100.ai'
 const DESCRIPTION =
   'Plan your visit to INNO100, the Global Innovation Flagship Store in Shenzhen. 100+ global innovations, hands-on demos, and new arrivals every week. Open daily 10 AM – 10 PM at Shenzhen Bay Culture Square.'
 
-// Coordinates match the Store entry in components/StructuredData.tsx
-const LAT = 22.51497
-const LNG = 113.94034
+// Both links are the store's own registered place records, not coordinate
+// searches, so they open on INNO100 itself instead of a loose match nearby.
+// Apple Maps covers iOS and overseas visitors; Amap covers anyone already on
+// a China mobile network.
+const APPLE_MAPS_URL =
+  'https://maps.apple.com/place?map=explore&place-id=H2710I3F98C392CA40D&address=%E4%B8%AD%E5%9B%BD%E5%B9%BF%E4%B8%9C%E7%9C%81%E6%B7%B1%E5%9C%B3%E5%B8%82%E5%8D%97%E5%B1%B1%E5%8C%BA%E6%B7%B1%E5%9C%B3%E6%B9%BE%E6%96%87%E5%8C%96%E5%B9%BF%E5%9C%BA%E4%B8%9C%E5%8C%97%E9%97%A8%28%E8%BF%91%E4%BA%BA%E6%89%8D%E5%85%AC%E5%9B%AD%29&coordinate=22.513058%2C113.945949&name=INNO100%E5%85%A8%E7%90%83%E5%88%9B%E6%96%B0%E6%97%97%E8%88%B0%E5%BA%97&_provider=57879'
 
-// Google Maps for international visitors, Amap for anyone already on a
-// China mobile network. Amap takes longitude before latitude.
-// The registered POI name. Apple Maps and Amap both resolve this against
-// Amap's China POI data, so it lands on the store rather than on a
-// loose match for the English brand name alone.
-const STORE_NAME_CN = 'INNO100全球创新旗舰店'
-
-const GOOGLE_MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${LAT},${LNG}`
-const APPLE_MAPS_URL = `https://maps.apple.com/?q=${encodeURIComponent(
-  STORE_NAME_CN,
-)}&ll=${LAT},${LNG}`
-const AMAP_URL = `https://uri.amap.com/marker?position=${LNG},${LAT}&name=${encodeURIComponent(
-  STORE_NAME_CN,
-)}`
+const AMAP_URL = 'https://surl.amap.com/3BPNNoCzbkF'
 
 /* ── Payment ─────────────────────────────────────────────────── */
 const PAYMENT_MOBILE = [
@@ -487,14 +477,6 @@ export default function Visit() {
                     </span>
                   </p>
                   <div className="flex flex-wrap gap-3 mt-4">
-                    <a
-                      href={GOOGLE_MAPS_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm px-4 py-2 border border-gray-300 rounded hover:border-black transition"
-                    >
-                      Open in Google Maps
-                    </a>
                     <a
                       href={APPLE_MAPS_URL}
                       target="_blank"

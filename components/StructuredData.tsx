@@ -51,10 +51,13 @@ const structuredData = {
         addressRegion: '广东省',
         addressCountry: 'CN',
       },
+      // From the store's registered Apple Maps place record
+      // (place-id H2710I3F98C392CA40D), the same record the map link on
+      // /visit opens. The previous pair sat 614 m away.
       geo: {
         '@type': 'GeoCoordinates',
-        latitude: 22.51497,
-        longitude: 113.94034,
+        latitude: 22.513058,
+        longitude: 113.945949,
       },
       openingHoursSpecification: [
         {
