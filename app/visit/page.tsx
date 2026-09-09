@@ -370,7 +370,8 @@ export default function Visit() {
                   <p className="text-gray-500 text-sm mt-3">
                     Show this to a taxi driver:<br />
                     <span className="text-gray-700">
-                      深圳市南山区深圳湾文化广场北馆 L1 层（东北门，近人才公园）
+                      深圳市南山区深圳湾文化广场北馆 L1
+                      层（东北门，近人才公园）INNO100全球创新旗舰店
                     </span>
                   </p>
                   <div className="flex flex-wrap gap-3 mt-4">
