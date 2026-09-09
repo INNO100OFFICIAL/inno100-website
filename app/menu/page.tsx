@@ -8,6 +8,15 @@ import {
 
 const SITE_URL = 'https://inno100.ai'
 
+/**
+ * Featured Products is hidden until its one-line value propositions are
+ * approved — 18 of the 20 cards have no copy yet, so the grid reads as empty.
+ * The section is still built below; flip this to true to bring it back.
+ * Hiding it does not affect the ItemList structured data, which is built from
+ * the full catalogue.
+ */
+const SHOW_FEATURED = false
+
 const TITLE = 'Explore Products | INNO100'
 
 const DESCRIPTION =
@@ -182,7 +191,10 @@ export default function MenuPage() {
 
   return (
     <>
-      <MenuTabs featured={featuredSection} catalogue={catalogueSection} />
+      <MenuTabs
+        featured={SHOW_FEATURED ? featuredSection : null}
+        catalogue={catalogueSection}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
