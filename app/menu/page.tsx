@@ -17,6 +17,14 @@ const SITE_URL = 'https://inno100.ai'
  */
 const SHOW_FEATURED = false
 
+/**
+ * Full Catalogue is hidden for review. The ItemList structured data is gated
+ * behind the same flag on purpose: marking up 151 products that no visitor can
+ * see is exactly what Google's structured data guidelines prohibit, and risks
+ * a manual action against the site. Restoring the section restores the schema.
+ */
+const SHOW_CATALOGUE = false
+
 const TITLE = 'Explore Products | INNO100'
 
 const DESCRIPTION =
@@ -193,12 +201,14 @@ export default function MenuPage() {
     <>
       <MenuTabs
         featured={SHOW_FEATURED ? featuredSection : null}
-        catalogue={catalogueSection}
+        catalogue={SHOW_CATALOGUE ? catalogueSection : null}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
-      />
+      {SHOW_CATALOGUE && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+        />
+      )}
     </>
   )
 }
