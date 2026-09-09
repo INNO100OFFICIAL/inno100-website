@@ -47,6 +47,12 @@ type Route = {
   metro?: string
   metroCn?: string
   taxi?: string
+  flights?: {
+    title: string
+    titleCn: string
+    destinations: { en: string; cn: string }[]
+    upcoming: { label: string; title: string; titleCn: string; note: string }
+  }
 }
 
 type TransitSection = {
@@ -72,6 +78,34 @@ const TRANSIT: TransitSection[] = [
           'Line 11 from Airport Station → Houhai Station, Exit K2 → approx. 10-min walk',
         metroCn: '机场站乘11号线 → 后海站K2口 → 步行约10分钟到店',
         taxi: 'Approx. 25–30 min',
+        flights: {
+          title:
+            'Direct passenger flights to 15 APEC countries and regions',
+          titleCn: '深圳宝安国际机场已开通直航15个APEC国家和地区的客运航线',
+          destinations: [
+            { en: 'Japan', cn: '日本' },
+            { en: 'South Korea', cn: '韩国' },
+            { en: 'Malaysia', cn: '马来西亚' },
+            { en: 'Indonesia', cn: '印度尼西亚' },
+            { en: 'Philippines', cn: '菲律宾' },
+            { en: 'Singapore', cn: '新加坡' },
+            { en: 'Thailand', cn: '泰国' },
+            { en: 'Vietnam', cn: '越南' },
+            { en: 'Australia', cn: '澳大利亚' },
+            { en: 'New Zealand', cn: '新西兰' },
+            { en: 'Russia', cn: '俄罗斯' },
+            { en: 'United States', cn: '美国' },
+            { en: 'Canada', cn: '加拿大' },
+            { en: 'Mexico', cn: '墨西哥' },
+            { en: 'Chinese Taipei', cn: '中国台北' },
+          ],
+          upcoming: {
+            label: 'NEW',
+            title: 'Brunei direct flight launches Sep 29',
+            titleCn: '9月29日起新增文莱直航',
+            note: 'Direct service between Shenzhen and Bandar Seri Begawan launches on 29 September.',
+          },
+        },
       },
     ],
   },
@@ -180,6 +214,27 @@ const DRIVING = {
   note: 'The taxi drop-off point and the parking entrance are at the same location. 打车下客点与停车场入口位于同一位置。',
 }
 
+const VISIT_TYPES = [
+  {
+    title: 'Walk-in',
+    titleCn: '个人到店',
+    text: 'No appointment needed — come in any time during opening hours and start trying things.',
+    textCn: '无需预约，营业时间内可直接到店体验。',
+  },
+  {
+    title: 'Group Visit',
+    titleCn: '团体参观',
+    text: 'Companies, institutions and schools can book a group visit in advance.',
+    textCn: '支持企业、机构、学校等团体预约参观。',
+  },
+  {
+    title: 'Guided Tour',
+    titleCn: '中英文讲解',
+    text: 'Guided tours for groups are available in Chinese or English.',
+    textCn: '可提供中文 / 英文团体讲解服务。',
+  },
+]
+
 const FAQS = [
   {
     q: 'Where exactly is INNO100?',
@@ -203,7 +258,11 @@ const FAQS = [
   },
   {
     q: 'Do I need to book in advance?',
-    a: 'No booking required — you can walk straight in during opening hours. If you do fill in the Book Your Visit form above, we will email you a visitor guide before you arrive.',
+    a: 'Not as an individual visitor — you can walk straight in during opening hours. Groups do need to book ahead. If you fill in the Book Your Visit form above, we will email you a visitor guide before you arrive.',
+  },
+  {
+    q: 'Can we book a group visit?',
+    a: 'Yes. Companies, institutions and schools can book a group visit in advance through the Book Your Visit form above. Guided tours for groups are available in Chinese or English — tell us which you would prefer in the form.',
   },
   {
     q: 'How long should I plan for a visit?',
@@ -215,7 +274,7 @@ const FAQS = [
   },
   {
     q: 'Is there English-language help in the store?',
-    a: 'Yes. We have English-speaking staff on the floor, and every product label and price tag is bilingual. If you would like dedicated English assistance for your visit, add a note in the Book Your Visit form above and someone will get in touch.',
+    a: 'Yes. We have English-speaking staff on the floor, and every product label and price tag is bilingual. Groups can also book an English-language guided tour. If you would like dedicated English assistance for your visit, add a note in the Book Your Visit form above and someone will get in touch.',
   },
   {
     q: 'Is INNO100 a good stop for international visitors?',
@@ -333,6 +392,41 @@ function RouteCard({ route }: { route: Route }) {
           <p className="text-sm text-gray-600 mt-0.5">{route.taxi}</p>
         </div>
       )}
+
+      {route.flights && (
+        <div className="mt-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
+          <p className="text-sm font-medium text-gray-900">
+            ⭐ {route.flights.title}
+          </p>
+          <p className="text-sm text-gray-500 mt-0.5">
+            {route.flights.titleCn}
+          </p>
+
+          <ul className="mt-3 grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-1">
+            {route.flights.destinations.map((d) => (
+              <li key={d.en} className="text-sm text-gray-600">
+                {d.en}
+                <span className="ml-1.5 text-gray-400">{d.cn}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-4 pt-3 border-t border-gray-200">
+            <p className="text-sm font-medium text-gray-900">
+              <span className="mr-2 text-xs px-1.5 py-0.5 rounded bg-gray-900 text-white align-middle">
+                {route.flights.upcoming.label}
+              </span>
+              {route.flights.upcoming.title}
+            </p>
+            <p className="text-sm text-gray-500 mt-0.5">
+              {route.flights.upcoming.titleCn}
+            </p>
+            <p className="text-xs text-gray-500 mt-1">
+              {route.flights.upcoming.note}
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
@@ -349,6 +443,24 @@ export default function Visit() {
             Come experience the future of consumer technology, hands-on in Shenzhen.
             100+ global innovations. Real demos. New arrivals every week.
           </p>
+
+          <div className="mt-10 grid gap-4 sm:grid-cols-3 text-left">
+            {VISIT_TYPES.map((type) => (
+              <div
+                key={type.title}
+                className="rounded-lg border border-gray-200 bg-gray-50 p-5"
+              >
+                <h2 className="font-semibold text-gray-900">
+                  {type.title}
+                  <span className="ml-2 text-sm font-normal text-gray-500">
+                    {type.titleCn}
+                  </span>
+                </h2>
+                <p className="mt-2 text-sm text-gray-600">{type.text}</p>
+                <p className="mt-1 text-sm text-gray-500">{type.textCn}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
