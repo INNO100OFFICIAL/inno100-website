@@ -12,11 +12,18 @@ const LNG = 113.94034
 
 // Google Maps for international visitors, Amap for anyone already on a
 // China mobile network. Amap takes longitude before latitude.
+// The registered POI name. Apple Maps and Amap both resolve this against
+// Amap's China POI data, so it lands on the store rather than on a
+// loose match for the English brand name alone.
+const STORE_NAME_CN = 'INNO100全球创新旗舰店'
+
 const GOOGLE_MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${LAT},${LNG}`
-// Apple Maps opens natively on iOS and is backed by Amap data inside
-// mainland China, so it resolves for visitors on either network.
-const APPLE_MAPS_URL = `https://maps.apple.com/?ll=${LAT},${LNG}&q=INNO100`
-const AMAP_URL = `https://uri.amap.com/marker?position=${LNG},${LAT}&name=INNO100`
+const APPLE_MAPS_URL = `https://maps.apple.com/?q=${encodeURIComponent(
+  STORE_NAME_CN,
+)}&ll=${LAT},${LNG}`
+const AMAP_URL = `https://uri.amap.com/marker?position=${LNG},${LAT}&name=${encodeURIComponent(
+  STORE_NAME_CN,
+)}`
 
 /* ── Payment ─────────────────────────────────────────────────── */
 const PAYMENT_MOBILE = [
