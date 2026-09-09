@@ -53,64 +53,6 @@ type TransitSection = {
 
 const TRANSIT: TransitSection[] = [
   {
-    id: 'metro',
-    title: 'Getting to INNO100 by Metro',
-    titleCn: '搭乘地铁 → INNO100',
-    defaultOpen: true,
-    routes: [
-      {
-        name: 'Line 13 · Talent Park Station',
-        nameCn: '13号线 人才公园站',
-        badges: ['Top Choice', 'Closest'],
-        metro: 'Exit B1 → approx. 5-min walk to INNO100',
-        metroCn: 'B1口 → 步行约5分钟到店',
-      },
-      {
-        name: 'Line 11 · Houhai Station',
-        nameCn: '11号线 后海站',
-        metro: 'Exit K2 → approx. 10-min walk to INNO100',
-        metroCn: 'K2口 → 步行约10分钟到店',
-      },
-    ],
-  },
-  {
-    id: 'ports',
-    title: 'From Shenzhen Ports',
-    titleCn: '深圳口岸 → INNO100',
-    routes: [
-      {
-        name: 'Shenzhen Bay Port',
-        nameCn: '深圳湾口岸',
-        badges: ['Closest to INNO100', 'Recommended'],
-        distance: 'Approx. 2.6 km from INNO100',
-        metro:
-          'Line 13, Shenzhen Bay Port Station → Talent Park Station, Exit B1 → approx. 5-min walk',
-        metroCn: '13号线深圳湾口岸站 → 人才公园站B1口 → 步行约5分钟到店',
-        taxi: 'Approx. 10 min',
-      },
-      {
-        name: 'Huanggang Port',
-        nameCn: '皇岗口岸',
-        badges: ['Open 24 Hours'],
-        distance: 'Approx. 17 km from INNO100',
-        metro:
-          'Line 7, Huanggang Port Station → transfer to Line 11 at Chegongmiao → Houhai Station, Exit K → approx. 10-min walk',
-        metroCn: '7号线皇岗口岸站 → 车公庙换乘11号线 → 后海站K口 → 步行约10分钟到店',
-        taxi: 'Approx. 25–30 min',
-      },
-    ],
-    others: {
-      items: [
-        'Futian Port 福田口岸',
-        'Luohu Port 罗湖口岸',
-        'Liantang Port 莲塘口岸',
-        'Wenjindu Port 文锦渡口岸',
-        'Shekou Cruise Homeport 蛇口邮轮母港',
-      ],
-      note: 'Multiple passenger entry ports are available in Shenzhen. 深圳设有多个旅客入境口岸，可按行程选择。',
-    },
-  },
-  {
     id: 'airport',
     title: 'Getting to INNO100 from the Airport',
     titleCn: '飞机抵达 → INNO100',
@@ -157,6 +99,63 @@ const TRANSIT: TransitSection[] = [
       ],
       note: 'Shenzhen has several railway stations. Choose your route based on your arrival station. 深圳有多个铁路客运站，可根据实际到达车站选择路线。',
     },
+  },
+  {
+    id: 'ports',
+    title: 'From Shenzhen Ports',
+    titleCn: '深圳口岸 → INNO100',
+    routes: [
+      {
+        name: 'Shenzhen Bay Port',
+        nameCn: '深圳湾口岸',
+        badges: ['Closest to INNO100', 'Recommended'],
+        distance: 'Approx. 2.6 km from INNO100',
+        metro:
+          'Line 13, Shenzhen Bay Port Station → Talent Park Station, Exit B1 → approx. 5-min walk',
+        metroCn: '13号线深圳湾口岸站 → 人才公园站B1口 → 步行约5分钟到店',
+        taxi: 'Approx. 10 min',
+      },
+      {
+        name: 'Huanggang Port',
+        nameCn: '皇岗口岸',
+        badges: ['Open 24 Hours'],
+        distance: 'Approx. 17 km from INNO100',
+        metro:
+          'Line 7, Huanggang Port Station → transfer to Line 11 at Chegongmiao → Houhai Station, Exit K2 → approx. 10-min walk',
+        metroCn: '7号线皇岗口岸站 → 车公庙换乘11号线 → 后海站K2口 → 步行约10分钟到店',
+        taxi: 'Approx. 25–30 min',
+      },
+    ],
+    others: {
+      items: [
+        'Futian Port 福田口岸',
+        'Luohu Port 罗湖口岸',
+        'Liantang Port 莲塘口岸',
+        'Wenjindu Port 文锦渡口岸',
+        'Shekou Cruise Homeport 蛇口邮轮母港',
+      ],
+      note: 'Multiple passenger entry ports are available in Shenzhen. 深圳设有多个旅客入境口岸，可按行程选择。',
+    },
+  },
+  {
+    id: 'metro',
+    title: 'Getting to INNO100 by Metro',
+    titleCn: '搭乘地铁 → INNO100',
+    routes: [
+      {
+        name: 'Line 13 · Talent Park Station',
+        nameCn: '13号线 人才公园站',
+        badges: ['Top Choice', 'Closest'],
+        metro: 'Exit B1 → approx. 5-min walk to INNO100',
+        metroCn: 'B1口 → 步行约5分钟到店',
+      },
+      {
+        name: 'Line 11 · Houhai Station',
+        nameCn: '11号线 后海站',
+        metro: 'Exit K2 → approx. 10-min walk to INNO100',
+        metroCn: 'K2口 → 步行约10分钟到店',
+      },
+    ],
   },
 ]
 
