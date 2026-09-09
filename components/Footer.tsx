@@ -43,6 +43,7 @@ export default function Footer() {
               <li><a href="https://www.facebook.com/profile.php?id=1066676599854651" target="_blank" rel="noopener noreferrer" onClick={() => trackSocialClick('facebook')} className="hover:text-white transition">Facebook</a></li>
               <li><a href="https://www.linkedin.com/company/inno100-store" target="_blank" rel="noopener noreferrer" onClick={() => trackSocialClick('linkedin')} className="hover:text-white transition">LinkedIn</a></li>
               <li><a href="https://www.reddit.com/user/INNO100-OFFICIAL/" target="_blank" rel="noopener noreferrer" onClick={() => trackSocialClick('reddit')} className="hover:text-white transition">Reddit</a></li>
+              <li><a href="https://www.tripadvisor.com/Attraction_Review-g297415-d34534030-Reviews-INNO100-Shenzhen_Guangdong.html" target="_blank" rel="noopener noreferrer" onClick={() => trackSocialClick('tripadvisor')} className="hover:text-white transition">TripAdvisor</a></li>
             </ul>
           </div>
           <div>

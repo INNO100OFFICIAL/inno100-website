@@ -93,6 +93,15 @@ export default function Contact() {
                     >
                       LinkedIn
                     </a>
+                    <a
+                      href="https://www.tripadvisor.com/Attraction_Review-g297415-d34534030-Reviews-INNO100-Shenzhen_Guangdong.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackEvent('social_click', { social_network: 'tripadvisor' })}
+                      className="text-gray-600 hover:text-black transition"
+                    >
+                      TripAdvisor
+                    </a>
                   </div>
                 </div>
               </div>

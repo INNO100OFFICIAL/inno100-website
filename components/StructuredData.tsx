@@ -28,6 +28,10 @@ const structuredData = {
         'https://x.com/INNO100OFFICIAL',
         'https://www.facebook.com/profile.php?id=1066676599854651',
         'https://www.reddit.com/user/INNO100-OFFICIAL/',
+        // Canonical .com host on purpose. The listing is reachable on every
+        // TripAdvisor locale domain (.fr, .cn, …) but only the .com URL should
+        // be declared here, so Google resolves one entity rather than several.
+        'https://www.tripadvisor.com/Attraction_Review-g297415-d34534030-Reviews-INNO100-Shenzhen_Guangdong.html',
       ],
     },
     {
@@ -81,6 +85,10 @@ const structuredData = {
         'https://x.com/INNO100OFFICIAL',
         'https://www.facebook.com/profile.php?id=1066676599854651',
         'https://www.reddit.com/user/INNO100-OFFICIAL/',
+        // Canonical .com host on purpose. The listing is reachable on every
+        // TripAdvisor locale domain (.fr, .cn, …) but only the .com URL should
+        // be declared here, so Google resolves one entity rather than several.
+        'https://www.tripadvisor.com/Attraction_Review-g297415-d34534030-Reviews-INNO100-Shenzhen_Guangdong.html',
       ],
     },
   ],
