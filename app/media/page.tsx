@@ -19,6 +19,32 @@ function ArticleLink({ article, className, children }: { article: Article; class
   )
 }
 
+type MediaItem = {
+  id: number
+  title: string
+  date: string
+  source: string
+  excerpt: string
+  image: string
+  /**
+   * Set only on items we can link to a readable source. Most coverage here is
+   * print, broadcast or WeChat-internal with no stable public URL, so the
+   * default card stays unlinked rather than pointing somewhere that rots.
+   */
+  url?: string
+}
+
+function MediaCardLink({ item, children }: { item: MediaItem; children: React.ReactNode }) {
+  if (!item.url) {
+    return <>{children}</>
+  }
+  return (
+    <a href={item.url} target="_blank" rel="noopener noreferrer" className="group block">
+      {children}
+    </a>
+  )
+}
+
 export const metadata = {
   title: 'Media Centre | INNO100',
   description: 'Media coverage and press mentions of INNO100 — the Global Innovation Flagship Store in Shenzhen — from Xinhua, People\'s Daily, 21st Century Business Herald, and more.',
@@ -40,7 +66,7 @@ export const metadata = {
 }
 
 export default function Media() {
-  const articles = [
+  const articles: MediaItem[] = [
     {
       id: 1,
       title: 'Guangdong Accelerates AI Development in Toy Manufacturing',
@@ -321,6 +347,15 @@ export default function Media() {
       excerpt: 'Robotics company Strutt held the China offline debut of its flagship Strutt EV1 smart mobility robot at INNO100\'s Global Innovation Flagship Store in Shenzhen Bay. The demo unit is now on display at the store, open to the public for hands-on viewing and test rides.',
       image: '/images/media/35.jpg',
     },
+    {
+      id: 36,
+      title: 'Asia-Pacific Journalists Deepen Media Cooperation Through Shenzhen APMP',
+      date: '2026-09-09',
+      source: 'The Climate Watch',
+      excerpt: 'A three-day Asia-Pacific Media Partnership Programme session brought 27 journalists from 12 countries to Shenzhen from September 6 to 8. On the closing day, participants toured INNO100\'s Global Innovation Flagship Store and the Bambu Lab 3D printing store at Shenzhen Bay MixC.',
+      image: '/images/media/36.jpg',
+      url: 'https://theclimatewatch.com/asia-pacific-journalists-deepen-media-cooperation-through-shenzhen-apmp/',
+    },
   ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
   const mediaJsonLd = {
@@ -340,6 +375,10 @@ export default function Media() {
           datePublished: article.date,
           description: article.excerpt,
           image: `${SITE_URL}${article.image}`,
+          // Spread rather than a plain key so unlinked coverage doesn't emit
+          // `url: undefined`, which JSON.stringify would drop anyway but reads
+          // as an oversight in the source.
+          ...(article.url ? { url: article.url } : {}),
           creator: {
             '@type': 'Organization',
             name: article.source,
@@ -412,29 +451,36 @@ export default function Media() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {articles.map((article) => (
-              <article key={article.id} className="bg-white rounded-lg overflow-hidden hover:shadow-lg transition cursor-pointer">
-                <div className="relative w-full h-40 bg-gray-200">
-                  <Image
-                    src={article.image}
-                    alt={article.title}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="p-8">
-                  <h3 className="text-xl font-bold mb-2" style={{ color: '#2B7A8F' }}>
-                    {article.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 mb-4">
-                    {new Date(article.date).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    })} • {article.source}
-                  </p>
-                  <p className="text-gray-700 text-sm">{article.excerpt}</p>
-                </div>
-              </article>
+              <MediaCardLink key={article.id} item={article}>
+                <article className="bg-white rounded-lg overflow-hidden hover:shadow-lg transition cursor-pointer h-full">
+                  <div className="relative w-full h-40 bg-gray-200">
+                    <Image
+                      src={article.image}
+                      alt={article.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="p-8">
+                    <h3 className="text-xl font-bold mb-2" style={{ color: '#2B7A8F' }}>
+                      {article.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 mb-4">
+                      {new Date(article.date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      })} • {article.source}
+                    </p>
+                    <p className="text-gray-700 text-sm">{article.excerpt}</p>
+                    {article.url && (
+                      <span className="mt-4 inline-block text-sm font-medium group-hover:underline" style={{ color: '#2B7A8F' }}>
+                        Read on {article.source} ↗
+                      </span>
+                    )}
+                  </div>
+                </article>
+              </MediaCardLink>
             ))}
           </div>
         </div>
