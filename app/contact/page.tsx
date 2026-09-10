@@ -175,7 +175,7 @@ export default function Contact() {
                     <option value="">Select an option</option>
                     <option value="Product Purchase">Product Purchase</option>
                     <option value="Event Collaboration">Event Collaboration</option>
-                    <option value="Visit Reception">Visit Reception</option>
+                    <option value="Business Reception">Business Reception</option>
                     <option value="Settlement Cooperation">Settlement Cooperation</option>
                     <option value="Media Coverage">Media Coverage</option>
                   </select>
