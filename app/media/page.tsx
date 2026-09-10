@@ -356,6 +356,15 @@ export default function Media() {
       image: '/images/media/36.jpg',
       url: 'https://theclimatewatch.com/asia-pacific-journalists-deepen-media-cooperation-through-shenzhen-apmp/',
     },
+    {
+      id: 37,
+      title: 'South African Delegation Returns to Go Global for Closed-Door Trade Talks in Nanshan',
+      date: '2026-09-07',
+      source: 'Phoenix News Shenzhen (ifeng)',
+      excerpt: 'A South African delegation led by the Department of Trade, Industry and Competition and the Western Cape investment agency held a closed-door South Africa-Shenzhen (Nanshan) trade session at the Go Global service centre on September 3, continuing from the Deputy President\'s visit to Nanshan in June. After the talks, the delegation visited three Nanshan companies — EngineAI Robotics, INNO100 and Sunwoda — an itinerary spanning robot demonstrations, hands-on experience with laser engravers and AI smart glasses, and a look at vehicle batteries and energy storage systems.',
+      image: '/images/media/37.jpg',
+      url: 'https://sz.ifeng.com/c/8wECMB0x6KN',
+    },
   ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
   const mediaJsonLd = {
