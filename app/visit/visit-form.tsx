@@ -16,6 +16,14 @@ function trackEvent(eventName: string, params?: Record<string, unknown>) {
 
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mzdllgoj'
 
+/**
+ * Shown as a fallback wherever the form could silently fail to reach us. A
+ * submission can be accepted by the form backend and still never arrive in the
+ * team inbox — a bounced notification looks identical to success from here —
+ * so the visitor always gets an address they can write to themselves.
+ */
+const CONTACT_EMAIL = 'brand@inno100.group'
+
 export default function VisitForm() {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
 
@@ -51,6 +59,18 @@ export default function VisitForm() {
         <p className="text-gray-700 leading-relaxed">
           We&apos;ve received your visit plan! See you at INNO100 — Shenzhen Bay Culture
           Square, open daily 10 AM – 10 PM.
+        </p>
+        <p className="mt-4 text-sm text-gray-600 leading-relaxed">
+          Haven&apos;t heard back from us within two working days? Please email us
+          directly at{' '}
+          <a
+            href={`mailto:${CONTACT_EMAIL}?subject=Visit%20enquiry%20-%20INNO100`}
+            onClick={() => trackEvent('email_click', { source: 'visit_form_success' })}
+            className="font-medium text-gray-900 underline hover:no-underline"
+          >
+            {CONTACT_EMAIL}
+          </a>
+          {' '}— your message may not have reached us.
         </p>
       </div>
     )
@@ -134,7 +154,15 @@ export default function VisitForm() {
         {status === 'error' && (
           <p className="text-sm text-red-600">
             Something went wrong submitting your visit plan. Please try again, or email us
-            directly.
+            directly at{' '}
+            <a
+              href={`mailto:${CONTACT_EMAIL}?subject=Visit%20enquiry%20-%20INNO100`}
+              onClick={() => trackEvent('email_click', { source: 'visit_form_error' })}
+              className="font-medium underline hover:no-underline"
+            >
+              {CONTACT_EMAIL}
+            </a>
+            .
           </p>
         )}
 

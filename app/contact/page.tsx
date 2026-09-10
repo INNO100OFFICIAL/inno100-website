@@ -12,6 +12,14 @@ function trackEvent(eventName: string, params?: Record<string, unknown>) {
   }
 }
 
+/**
+ * Offered alongside the form rather than instead of it. A submission can be
+ * accepted by the form backend and still never reach the team inbox — from the
+ * visitor's side a bounced notification is indistinguishable from success — so
+ * the address is always on the page as a route they control.
+ */
+const CONTACT_EMAIL = 'brand@inno100.group'
+
 export default function Contact() {
   return (
     <div className="pt-16">
@@ -46,6 +54,19 @@ export default function Contact() {
                   <h3 className="font-semibold text-lg mb-2">Hours</h3>
                   <p className="text-gray-600">
                     Monday - Sunday: 10:00 AM - 10:00 PM
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="font-semibold text-lg mb-2">Email</h3>
+                  <p className="text-gray-600">
+                    <a
+                      href={`mailto:${CONTACT_EMAIL}?subject=Enquiry%20-%20INNO100`}
+                      onClick={() => trackEvent('email_click', { source: 'contact_details' })}
+                      className="hover:text-black transition underline"
+                    >
+                      {CONTACT_EMAIL}
+                    </a>
                   </p>
                 </div>
 
@@ -176,6 +197,19 @@ export default function Contact() {
                 >
                   Send Inquiry
                 </button>
+
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  We aim to reply within two working days. If you don&apos;t hear back,
+                  please email us directly at{' '}
+                  <a
+                    href={`mailto:${CONTACT_EMAIL}?subject=Brand%20inquiry%20-%20INNO100`}
+                    onClick={() => trackEvent('email_click', { source: 'contact_form_footnote' })}
+                    className="font-medium text-gray-900 underline hover:no-underline"
+                  >
+                    {CONTACT_EMAIL}
+                  </a>
+                  {' '}— your message may not have reached us.
+                </p>
               </form>
             </div>
           </div>
