@@ -27,6 +27,7 @@ const structuredData = {
         'https://www.instagram.com/inno100_official/',
         'https://x.com/INNO100OFFICIAL',
         'https://www.facebook.com/profile.php?id=1066676599854651',
+        'https://www.youtube.com/@INNO100_Official',
         'https://www.reddit.com/user/INNO100-OFFICIAL/',
         // Canonical .com host on purpose. The listing is reachable on every
         // TripAdvisor locale domain (.fr, .cn, …) but only the .com URL should
@@ -84,6 +85,7 @@ const structuredData = {
         'https://www.instagram.com/inno100_official/',
         'https://x.com/INNO100OFFICIAL',
         'https://www.facebook.com/profile.php?id=1066676599854651',
+        'https://www.youtube.com/@INNO100_Official',
         'https://www.reddit.com/user/INNO100-OFFICIAL/',
         // Canonical .com host on purpose. The listing is reachable on every
         // TripAdvisor locale domain (.fr, .cn, …) but only the .com URL should

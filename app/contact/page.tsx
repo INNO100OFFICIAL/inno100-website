@@ -159,6 +159,15 @@ export default function Contact() {
                       X
                     </a>
                     <a
+                      href="https://www.youtube.com/@INNO100_Official"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackEvent('social_click', { social_network: 'youtube' })}
+                      className="text-gray-600 hover:text-black transition"
+                    >
+                      YouTube
+                    </a>
+                    <a
                       href="https://www.linkedin.com/company/inno100-store"
                       target="_blank"
                       rel="noopener noreferrer"
