@@ -14,7 +14,12 @@ function trackEvent(eventName: string, params?: Record<string, unknown>) {
   }
 }
 
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mzdllgoj'
+/**
+ * Our own route rather than Formspree directly. It notifies the team, sends the
+ * visitor an automatic introduction, and still forwards to Formspree as a
+ * second record — so this endpoint change loses nothing and adds the reply.
+ */
+const LEAD_ENDPOINT = '/api/lead'
 
 /**
  * Shown as a fallback wherever the form could silently fail to reach us. A
@@ -26,6 +31,8 @@ const CONTACT_EMAIL = 'brand@inno100.group'
 
 export default function VisitForm() {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
+  /** Whether the route actually sent the visitor guide, rather than assuming it. */
+  const [autoreplied, setAutoreplied] = useState(false)
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -33,7 +40,7 @@ export default function VisitForm() {
     setStatus('submitting')
 
     try {
-      const response = await fetch(FORMSPREE_ENDPOINT, {
+      const response = await fetch(LEAD_ENDPOINT, {
         method: 'POST',
         headers: { Accept: 'application/json' },
         body: new FormData(form),
@@ -43,6 +50,11 @@ export default function VisitForm() {
         setStatus('error')
         return
       }
+
+      // A missing or unreadable flag counts as "not sent": the fallback wording
+      // is true either way, whereas an over-promise is not.
+      const result = await response.json().catch(() => null)
+      setAutoreplied(result?.autoreplied === 'sent')
 
       trackEvent('form_submit', { form_name: 'visit_booking' })
       setStatus('success')
@@ -60,18 +72,33 @@ export default function VisitForm() {
           We&apos;ve received your visit plan! See you at INNO100 — Shenzhen Bay Culture
           Square, open daily 10 AM – 10 PM.
         </p>
-        <p className="mt-4 text-sm text-gray-600 leading-relaxed">
-          Haven&apos;t heard back from us within two working days? Please email us
-          directly at{' '}
-          <a
-            href={`mailto:${CONTACT_EMAIL}?subject=Visit%20enquiry%20-%20INNO100`}
-            onClick={() => trackEvent('email_click', { source: 'visit_form_success' })}
-            className="font-medium text-gray-900 underline hover:no-underline"
-          >
-            {CONTACT_EMAIL}
-          </a>
-          {' '}— your message may not have reached us.
-        </p>
+        {autoreplied ? (
+          <p className="mt-4 text-sm text-gray-600 leading-relaxed">
+            A visitor guide is on its way to your inbox, with directions and what to
+            expect on the floor. Nothing there? Check your spam folder, or email us at{' '}
+            <a
+              href={`mailto:${CONTACT_EMAIL}?subject=Visit%20enquiry%20-%20INNO100`}
+              onClick={() => trackEvent('email_click', { source: 'visit_form_success' })}
+              className="font-medium text-gray-900 underline hover:no-underline"
+            >
+              {CONTACT_EMAIL}
+            </a>
+            .
+          </p>
+        ) : (
+          <p className="mt-4 text-sm text-gray-600 leading-relaxed">
+            Haven&apos;t heard back from us within two working days? Please email us
+            directly at{' '}
+            <a
+              href={`mailto:${CONTACT_EMAIL}?subject=Visit%20enquiry%20-%20INNO100`}
+              onClick={() => trackEvent('email_click', { source: 'visit_form_success' })}
+              className="font-medium text-gray-900 underline hover:no-underline"
+            >
+              {CONTACT_EMAIL}
+            </a>
+            {' '}— your message may not have reached us.
+          </p>
+        )}
       </div>
     )
   }
@@ -81,6 +108,21 @@ export default function VisitForm() {
       <h2 className="text-3xl font-bold mb-8">Book Your Visit</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         <input type="hidden" name="form_type" value="Visit Booking" />
+
+        {/* Honeypot. Positioned off-screen rather than display:none, because the
+            cruder bots skip hidden fields but will happily fill this one. Kept
+            out of the tab order and hidden from assistive tech so it is
+            invisible to actual visitors. */}
+        <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px' }}>
+          <label htmlFor="visit-website-url">Website</label>
+          <input
+            id="visit-website-url"
+            type="text"
+            name="website_url"
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </div>
 
         <div>
           <label htmlFor="visit-name" className="block text-sm font-medium mb-2">
