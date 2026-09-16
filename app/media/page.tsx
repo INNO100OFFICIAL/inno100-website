@@ -57,6 +57,9 @@ export const metadata = {
     type: 'website',
     url: `${SITE_URL}/media`,
     siteName: 'INNO100',
+    // See app/opengraph-image.tsx — a page-level openGraph object overrides the
+    // file convention, so the shared image has to be named again here.
+    images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -401,6 +404,17 @@ export default function Media() {
     },
   }
 
+  /* Gives search results a "INNO100 › Media Centre" trail instead of a bare
+     URL, and tells a crawler where this page sits in the site. */
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Media Centre', item: `${SITE_URL}/media` },
+    ],
+  }
+
   const featured = getArticleBySlug('where-ai-leaves-screen-inno100')
 
   return (
@@ -408,6 +422,10 @@ export default function Media() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(mediaJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <section className="py-12 bg-white px-4">
         <div className="max-w-4xl mx-auto text-center">

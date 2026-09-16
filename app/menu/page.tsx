@@ -44,6 +44,10 @@ export const metadata = {
     type: 'website',
     url: `${SITE_URL}/menu`,
     siteName: 'INNO100',
+    // Points at app/opengraph-image.tsx. Needed explicitly: declaring an
+    // openGraph object here replaces the file convention rather than extending
+    // it, so without this line the page shares as a bare link.
+    images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',

@@ -109,11 +109,28 @@ export default async function ArticlePage({ params }: Props) {
     ...(ogImage && { image: [ogImage] }),
   }
 
+  /* The visible breadcrumb above the headline already links back to the list
+     page; this states the same trail in a form search engines read, so results
+     can show "INNO100 › Latest Updates › <title>" rather than a bare URL. */
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Latest Updates', item: `${SITE_URL}/news` },
+      { '@type': 'ListItem', position: 3, name: article.title, item: canonicalUrl },
+    ],
+  }
+
   return (
     <div className="pt-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <section className="py-12 bg-white px-4">
         <div className="max-w-3xl mx-auto text-center">

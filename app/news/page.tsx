@@ -30,6 +30,9 @@ export const metadata = {
     type: 'website',
     url: `${SITE_URL}/news`,
     siteName: 'INNO100',
+    // See app/opengraph-image.tsx — a page-level openGraph object overrides the
+    // file convention, so the shared image has to be named again here.
+    images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -43,8 +46,72 @@ export default function NewsPage() {
     article => article.slug !== 'where-ai-leaves-screen-inno100'
   )
 
+  /*
+   * Describes the list itself, so a crawler reading this page learns what the
+   * entries are without having to parse the grid markup. Mirrors the shape
+   * already used on /media, deliberately, so both listings look the same to a
+   * consumer that reads one and then the other.
+   *
+   * `url` points wherever the card points: an external post keeps its own
+   * address, since that is the canonical copy and claiming it here would
+   * compete with it. Internal articles point at our own page.
+   */
+  const newsJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Latest Updates | INNO100',
+    description:
+      'Original stories, features, and updates from INNO100 — the Global Innovation Flagship Store in Shenzhen.',
+    url: `${SITE_URL}/news`,
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'INNO100',
+      url: SITE_URL,
+    },
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: articles.map((article, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        item: {
+          '@type': 'Article',
+          headline: article.title,
+          description: article.description,
+          datePublished: article.publishedAt,
+          ...(article.updatedAt ? { dateModified: article.updatedAt } : {}),
+          url: article.externalUrl || `${SITE_URL}/news/${article.slug}`,
+          ...(article.image ? { image: `${SITE_URL}${article.image}` } : {}),
+          publisher: {
+            '@type': 'Organization',
+            name: 'INNO100',
+            url: SITE_URL,
+          },
+        },
+      })),
+    },
+  }
+
+  /* Gives search results a "INNO100 › Latest Updates" trail instead of a bare
+     URL, and tells a crawler where this page sits in the site. */
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Latest Updates', item: `${SITE_URL}/news` },
+    ],
+  }
+
   return (
     <div className="pt-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(newsJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <section className="py-12 bg-white px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">

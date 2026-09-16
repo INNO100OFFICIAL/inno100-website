@@ -297,6 +297,9 @@ export const metadata = {
     type: 'website',
     url: `${SITE_URL}/visit`,
     siteName: 'INNO100',
+    // See app/opengraph-image.tsx — a page-level openGraph object overrides the
+    // file convention, so the shared image has to be named again here.
+    images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
