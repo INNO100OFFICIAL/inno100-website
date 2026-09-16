@@ -368,6 +368,17 @@ export default function Media() {
       image: '/images/media/37.jpg',
       url: 'https://sz.ifeng.com/c/8wECMB0x6KN',
     },
+    {
+      id: 38,
+      title: 'Shenzhen Prepares for the APEC Summit to the Highest Standard',
+      date: '2026-09-10',
+      source: 'Southern Metropolis Daily',
+      excerpt: 'A district-by-district survey of Shenzhen\'s preparations for the 2026 APEC summit — bilingual signage at the ports, cross-border mobile payment, upgraded volunteer services — and of how each district is converting the summit\'s visibility into industrial momentum. Nanshan\'s example is INNO100: the report notes visitors stay an average of 75 minutes at the innovation retail space, and that TIME listed it as a model for bringing global tech innovation into everyday life.',
+      image: '/images/media/38.jpg',
+      // http, not https: the host serves a certificate issued for an unrelated
+      // domain, so https fails validation outright. A plain link still opens.
+      url: 'http://www.qb.gd.gov.cn/qwdt/content/post_1338260.html',
+    },
   ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
   const mediaJsonLd = {
