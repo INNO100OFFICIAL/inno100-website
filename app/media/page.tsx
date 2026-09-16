@@ -379,6 +379,15 @@ export default function Media() {
       // domain, so https fails validation outright. A plain link still opens.
       url: 'http://www.qb.gd.gov.cn/qwdt/content/post_1338260.html',
     },
+    {
+      id: 39,
+      title: 'AULUMU Holds Its First China Offline Launch at INNO100 Shenzhen Bay',
+      date: '2026-09-14',
+      source: 'GeekPark',
+      excerpt: 'Three days after Apple\'s autumn event, functional-aesthetics brand AULUMU held its first offline product launch in China at INNO100\'s Shenzhen Bay store, co-presented with INNO100\'s 「首硬礼」 in-store hardware debut programme. Alongside a new case matrix for the iPhone 18 Pro and Pro Max, the brand brought its full range on site — magnetic stands, watch straps, crossbody bags, power banks — for visitors to handle. The products remain on display and on sale at the store for a month after the launch.',
+      image: '/images/media/39.jpg',
+      url: 'https://www.geekpark.net/news/370301',
+    },
   ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
   const mediaJsonLd = {
