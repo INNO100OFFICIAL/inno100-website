@@ -1,4 +1,5 @@
 import { autoresponse, teamNotification, type Lead, type LeadKind } from '@/lib/email-templates'
+import { subscribeLead } from '@/lib/mailchimp'
 
 /**
  * Single endpoint behind both site forms (/contact and /visit).
@@ -9,8 +10,9 @@ import { autoresponse, teamNotification, type Lead, type LeadKind } from '@/lib/
  *      through every configured channel and the response is 200 if *any* of
  *      them succeeded.
  *   2. Notifies the team, so someone can actually reply.
- *   3. Sends the visitor an automatic introduction — the thing this route was
- *      added for.
+ *   3. Gets the visitor an automatic introduction — the thing this route was
+ *      added for. See the section below on how that one is delivered, which is
+ *      not from here.
  *
  * Why a server route at all, rather than Mailchimp's embed code as originally
  * suggested: the embed replaces our markup with Mailchimp's, which would lose
@@ -18,12 +20,37 @@ import { autoresponse, teamNotification, type Lead, type LeadKind } from '@/lib/
  * size, inquiry type) and the team notification. Posting from here keeps all of
  * that and keeps every credential on the server, out of the client bundle.
  *
- * Why Mailchimp Transactional rather than a Marketing Automation Flow: this mail
- * has to leave the moment the form is submitted, and it carries per-submission
- * detail (planned date, group size, inquiry type). A Flow would need each of
- * those as a synced audience field and would move the copy into Mailchimp's
- * editor, away from review in this repo. The trade-off is cost — Transactional
- * is billed in blocks on top of the marketing plan.
+ * How the visitor's confirmation actually reaches them
+ * -----------------------------------------------------
+ * Through the Mailchimp audience, not from this route: subscribeLead() adds the
+ * contact with their submitted details as merge fields and tags them, and a
+ * Journey in Mailchimp sends the mail on that tag. That path was chosen because
+ * it runs inside the marketing plan already being paid for, and because the
+ * cheaper alternatives all failed on the same point — every one of them refuses
+ * to deliver to a visitor's own address without more money:
+ *
+ *   - Mailchimp Transactional's free demo rejects any recipient outside our own
+ *     verified domain. Confirmed by a live send, not inferred: the API answered
+ *     `status: rejected, reject_reason: recipient-domain-mismatch`.
+ *   - Paid Transactional is $20 per 25,000 emails on top of a Standard plan.
+ *   - Formspree's autoresponse needs their $30/month tier, and custom copy and a
+ *     custom From domain only unlock at $90/month.
+ *
+ * The cost of the Journey route, stated plainly because it is a real loss: the
+ * copy lives in Mailchimp's editor rather than in lib/email-templates.ts where
+ * it can be reviewed in a diff, only the fields promoted to merge fields survive
+ * the trip, and delivery is whenever the Journey fires rather than immediately.
+ *
+ * The two mail transports below are therefore not the visitor's path. They send
+ * the team notification, and they remain the way an instant autoresponse would
+ * be sent if either one ever becomes viable:
+ *
+ *   - SMTP (sendMailSmtp), when SMTP_USER and SMTP_PASS are set. Goes through the
+ *     Google Workspace account that already receives mail for inno100.ai, so it
+ *     costs nothing and can reach any address.
+ *   - Mailchimp Transactional (sendMail), otherwise. The sending domain
+ *     mail.inno100.ai is fully verified there (SPF, DKIM, DMARC), so it works the
+ *     moment a send block is bought.
  *
  * Ordering note: the autoresponse is sent *after* the team notification on
  * purpose. If a daily sending quota is hit, the mail we can least afford to
@@ -58,6 +85,24 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mzdllgoj'
  */
 const MANDRILL_ENDPOINT = 'https://mandrillapp.com/api/1.0/messages/send.json'
 
+/**
+ * SMTP defaults, used when SMTP_USER and SMTP_PASS are set. They point at Gmail
+ * because inno100.ai's MX is Google Workspace, so an account there can already
+ * send as an address on the domain with no new service and no new DNS.
+ *
+ * Why this path exists alongside Mandrill: Mandrill's free demo will only
+ * deliver to addresses on our own verified domain, and the message this route
+ * exists to send goes to a visitor — always an outside address. The demo
+ * therefore cannot send the one mail that matters, while a Workspace account
+ * can, at roughly 2,000 recipients a day.
+ *
+ * Port 465 with implicit TLS rather than 587 with STARTTLS: both work, but 465
+ * is encrypted from the first byte, so a proxy that strips the STARTTLS verb
+ * cannot silently downgrade the session to plaintext.
+ */
+const SMTP_HOST = process.env.SMTP_HOST || 'smtp.gmail.com'
+const SMTP_PORT = Number(process.env.SMTP_PORT || 465)
+
 type Outcome = 'sent' | 'failed' | 'skipped'
 
 function json(body: unknown, status = 200) {
@@ -81,6 +126,12 @@ function looksLikeEmail(value: string): boolean {
 }
 
 type SendArgs = {
+  /**
+   * The sending credential. Mandrill reads it as an API key; SMTP reads it as
+   * the account password. One field rather than two because the caller picks the
+   * transport and passes the matching secret, and a second optional field would
+   * only create a state where neither or both are set.
+   */
   apiKey: string
   from: string
   to: string
@@ -167,6 +218,84 @@ async function sendMail({ apiKey, from, to, replyTo, subject, html, text }: Send
     return 'sent'
   } catch (error) {
     console.error(`[lead] Mailchimp Transactional request threw sending to ${to}:`, error)
+    return 'failed'
+  }
+}
+
+/**
+ * Sends the same message over SMTP. Deliberately the same signature and the same
+ * return values as sendMail, so the caller picks a transport once and the rest
+ * of the handler is unaware of which one it got.
+ *
+ * `apiKey` carries the SMTP password here. The field keeps its name because the
+ * two senders share SendArgs; renaming it to suit this one would misname it for
+ * Mandrill, which really does take an API key.
+ *
+ * nodemailer is imported inside the function so it is only loaded when SMTP is
+ * configured. It is a Node-only package, which is legal here solely because of
+ * `runtime = 'nodejs'` at the top of this file — an edge runtime could not load it.
+ */
+async function sendMailSmtp({
+  apiKey: pass,
+  from,
+  to,
+  replyTo,
+  subject,
+  html,
+  text,
+}: SendArgs): Promise<Outcome> {
+  const user = process.env.SMTP_USER ?? ''
+  const declared = parseFrom(from)
+
+  /**
+   * Gmail will not send as an address that is neither the authenticated mailbox
+   * nor an alias confirmed under Settings → Accounts → "Send mail as". Rather
+   * than let a stale LEAD_FROM_EMAIL become a rejection we only discover from
+   * the logs, the display name is kept and the address is forced to the account
+   * that actually authenticated.
+   */
+  const sameAddress = declared.email.toLowerCase() === user.toLowerCase()
+  const sender = sameAddress ? declared : { email: user, name: declared.name }
+
+  if (!sameAddress) {
+    console.warn(
+      `[lead] LEAD_FROM_EMAIL (${declared.email}) is not the SMTP account (${user}); sending as the account instead.`
+    )
+  }
+
+  try {
+    const nodemailer = await import('nodemailer')
+
+    const transport = nodemailer.createTransport({
+      host: SMTP_HOST,
+      port: SMTP_PORT,
+      secure: SMTP_PORT === 465,
+      auth: { user, pass },
+    })
+
+    const result = await transport.sendMail({
+      from: sender.name ? { name: sender.name, address: sender.email } : sender.email,
+      to,
+      subject,
+      html,
+      text,
+      ...(replyTo ? { replyTo } : {}),
+    })
+
+    /**
+     * The same caution the Mandrill path needs, for a different reason: a
+     * resolved promise means the server accepted the session, not that it
+     * accepted the recipient. nodemailer reports both lists, so the address has
+     * to appear in `accepted` before the visitor is told mail is on its way.
+     */
+    if (result.rejected?.length || !result.accepted?.length) {
+      console.error(`[lead] SMTP refused ${to} — server said: ${result.response ?? 'nothing'}`)
+      return 'failed'
+    }
+
+    return 'sent'
+  } catch (error) {
+    console.error(`[lead] SMTP request threw sending to ${to}:`, error)
     return 'failed'
   }
 }
@@ -302,17 +431,35 @@ export async function POST(request: Request) {
     groupSize: asString(body.group_size).slice(0, 100) || undefined,
   }
 
-  const apiKey = process.env.MAILCHIMP_TRANSACTIONAL_API_KEY
-  const from = process.env.LEAD_FROM_EMAIL
   const teamEmail = process.env.LEAD_TEAM_EMAIL || DEFAULT_TEAM_EMAIL
+
+  /**
+   * Transport selection. SMTP wins when it is configured, because it is the only
+   * one of the two that can reach a visitor's own address — see the SMTP_HOST
+   * comment above. Mandrill stays as the alternative so that switching back is a
+   * change of environment variables rather than a change of code.
+   *
+   * `credential` is the API key or the SMTP password depending on which branch
+   * this took; both travel in the same SendArgs field.
+   */
+  const smtpUser = process.env.SMTP_USER
+  const smtpPass = process.env.SMTP_PASS
+  const mandrillKey = process.env.MAILCHIMP_TRANSACTIONAL_API_KEY
+  const useSmtp = Boolean(smtpUser && smtpPass)
+
+  const send = useSmtp ? sendMailSmtp : sendMail
+  const credential = useSmtp ? smtpPass! : mandrillKey
+  /* Gmail overrides this with the authenticated account anyway; the fallback
+     matters only for the Mandrill branch, where the domain is what we verified. */
+  const from = process.env.LEAD_FROM_EMAIL || (useSmtp ? smtpUser! : '')
 
   let notified: Outcome = 'skipped'
   let autoreplied: Outcome = 'skipped'
 
-  if (apiKey && from) {
+  if (credential && from) {
     const notification = teamNotification(lead)
-    notified = await sendMail({
-      apiKey,
+    notified = await send({
+      apiKey: credential,
       from,
       to: teamEmail,
       // Reply goes to the visitor, so answering is one tap from the phone.
@@ -321,8 +468,8 @@ export async function POST(request: Request) {
     })
 
     const intro = autoresponse(lead)
-    autoreplied = await sendMail({
-      apiKey,
+    autoreplied = await send({
+      apiKey: credential,
       from,
       to: lead.email,
       replyTo: teamEmail,
@@ -330,19 +477,35 @@ export async function POST(request: Request) {
     })
   } else {
     console.warn(
-      '[lead] MAILCHIMP_TRANSACTIONAL_API_KEY or LEAD_FROM_EMAIL unset; email step skipped.'
+      '[lead] No sending transport configured (set SMTP_USER + SMTP_PASS, or MAILCHIMP_TRANSACTIONAL_API_KEY + LEAD_FROM_EMAIL); email step skipped.'
     )
   }
 
-  const recorded = await forwardToFormspree(lead)
+  /**
+   * Both remaining channels are independent of each other and of the mail above,
+   * so they run together rather than in sequence — this route is on the visitor's
+   * critical path, and two round trips one after the other is the difference they
+   * would actually feel.
+   */
+  const [recorded, subscribed] = await Promise.all([
+    forwardToFormspree(lead),
+    subscribeLead(lead),
+  ])
 
   /* The visitor sees success if the lead survived anywhere. Only a total
-     failure — no mail sent and no record kept — is worth asking them to retry,
-     because that is the only case where retrying changes anything. */
-  const captured = notified === 'sent' || recorded === 'sent'
+     failure — nothing sent, nothing recorded, nobody added — is worth asking
+     them to retry, because that is the only case where retrying changes
+     anything. A contact in the audience counts: it is a durable record we can
+     act on, even though it reaches us through Mailchimp rather than an inbox. */
+  const captured = notified === 'sent' || recorded === 'sent' || subscribed === 'sent'
 
   if (!captured) {
-    console.error('[lead] Nothing captured this submission.', { notified, recorded, autoreplied })
+    console.error('[lead] Nothing captured this submission.', {
+      notified,
+      recorded,
+      subscribed,
+      autoreplied,
+    })
     return asHtml
       ? htmlThankYou(
           'That did not go through',
@@ -361,5 +524,5 @@ export async function POST(request: Request) {
     )
   }
 
-  return json({ ok: true, notified, autoreplied, recorded })
+  return json({ ok: true, notified, autoreplied, recorded, subscribed })
 }

@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import Link from 'next/link'
 import { getArticleBySlug, getArticleSlugs, getAllArticles } from '@/lib/articles'
 import { MDXRemote } from 'next-mdx-remote/rsc'
@@ -21,7 +21,10 @@ interface Props {
 export async function generateStaticParams() {
   const slugs = getArticleSlugs()
   return slugs
-    .filter(slug => !getArticleBySlug(slug)?.externalUrl)
+    .filter(slug => {
+      const article = getArticleBySlug(slug)
+      return !article?.externalUrl && !article?.videoUrl
+    })
     .map(slug => ({
       slug,
     }))
@@ -78,6 +81,12 @@ export default async function ArticlePage({ params }: Props) {
 
   if (!article || article.externalUrl) {
     notFound()
+  }
+
+  // Videos have no page of our own — anyone landing on this URL directly
+  // (old link, search result, typed-in address) goes straight to YouTube.
+  if (article.videoUrl) {
+    redirect(article.videoUrl)
   }
 
   const canonicalUrl = `${SITE_URL}/news/${article.slug}`

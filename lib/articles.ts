@@ -22,6 +22,9 @@ export interface Article {
     title: string
     href: string
   }>
+  type?: 'article' | 'video'
+  videoUrl?: string
+  duration?: string
 }
 
 export function getArticleSlugs(): string[] {
@@ -57,6 +60,9 @@ export function getArticleBySlug(slug: string): Article | null {
     content,
     externalUrl: data.externalUrl,
     relatedLinks: data.relatedLinks,
+    type: data.type || 'article',
+    videoUrl: data.videoUrl,
+    duration: data.duration,
   }
 }
 
