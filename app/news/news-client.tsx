@@ -37,44 +37,25 @@ export default function NewsPageClient({ articles }: { articles: Article[] }) {
   return (
     <section className="bg-white px-4 pb-16">
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-8 border-b">
-          <div className="flex gap-4">
-            <button
-              onClick={() => setActiveTab('articles')}
-              className={`pb-3 px-1 font-medium transition ${
-                activeTab === 'articles'
-                  ? 'text-black border-b-2 border-[#2B7A8F]'
-                  : 'text-gray-500 hover:text-black'
-              }`}
-            >
-              Articles
-            </button>
-            <button
-              onClick={() => setActiveTab('videos')}
-              className={`pb-3 px-1 font-medium transition ${
-                activeTab === 'videos'
-                  ? 'text-black border-b-2 border-[#2B7A8F]'
-                  : 'text-gray-500 hover:text-black'
-              }`}
-            >
-              Videos
-            </button>
-          </div>
-
-          {/* Same tabs, doubled as a content-type select for narrow screens —
-              mirrors the CES Discover pattern where the type switch also
-              works as a dropdown. Hidden on desktop since the tabs above
-              already do the job there. */}
-          <label className="sm:hidden">
+        <div className="flex items-center mb-8 pb-4 border-b">
+          {/* Content-type dropdown — the CES Discover pattern: one selector
+              switches between Videos and Articles, rather than separate tabs. */}
+          <label className="relative inline-block">
             <span className="sr-only">Content type</span>
             <select
               value={activeTab}
               onChange={(e) => setActiveTab(e.target.value as 'videos' | 'articles')}
-              className="text-sm border rounded-md px-2 py-1.5 text-gray-700"
+              className="appearance-none text-lg font-medium text-black border border-gray-300 rounded-md pl-4 pr-10 py-2 cursor-pointer hover:border-gray-400 transition focus:outline-none focus:ring-2 focus:ring-[#2B7A8F]"
             >
               <option value="articles">Articles</option>
               <option value="videos">Videos</option>
             </select>
+            <svg
+              className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
           </label>
         </div>
 
