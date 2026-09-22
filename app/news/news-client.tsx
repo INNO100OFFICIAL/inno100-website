@@ -71,7 +71,7 @@ export default function NewsPageClient({ articles }: { articles: Article[] }) {
                   <ContentLink key={item.slug} article={item}>
                     <article>
                       {item.image && (
-                        <div className="w-full aspect-[4/3] bg-gray-100 overflow-hidden rounded-lg mb-4 relative">
+                        <div className={`w-full ${item.type === 'video' ? 'aspect-[3/4]' : 'aspect-[4/3]'} bg-gray-100 overflow-hidden rounded-lg mb-4 relative`}>
                           <img
                             src={item.image}
                             alt={item.imageAlt || item.title}
