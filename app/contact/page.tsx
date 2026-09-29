@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { trackArenzaEvent } from '@/lib/arenza'
 
 declare global {
   interface Window {
@@ -67,6 +68,9 @@ export default function Contact() {
       setAutoreplied(result?.autoreplied === 'sent')
 
       trackEvent('form_submit', { form_name: 'brand_inquiry' })
+      // Reported here, in the success branch only: the docs are explicit that an
+      // event stands for a completed outcome, not a button press.
+      trackArenzaEvent()
       setStatus('success')
       form.reset()
     } catch {

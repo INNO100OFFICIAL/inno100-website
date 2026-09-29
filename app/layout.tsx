@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import StructuredData from '@/components/StructuredData'
 import AIReferrerTracker from '@/components/AIReferrerTracker'
+import ArenzaEvents from '@/components/ArenzaEvents'
 
 const GA_MEASUREMENT_ID = 'G-854QE2CJWH'
 const SITE_URL = 'https://inno100.ai'
@@ -40,6 +41,7 @@ export default function RootLayout({
         </Script>
         <StructuredData />
         <AIReferrerTracker />
+        <ArenzaEvents />
         <Navbar />
         <main>
           {children}

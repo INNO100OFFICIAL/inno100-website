@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { trackArenzaEvent } from '@/lib/arenza'
 
 declare global {
   interface Window {
@@ -57,6 +58,9 @@ export default function VisitForm() {
       setAutoreplied(result?.autoreplied === 'sent')
 
       trackEvent('form_submit', { form_name: 'visit_booking' })
+      // Reported here, not on button click: the route has already accepted the
+      // booking, so this stands for a submission we actually received.
+      trackArenzaEvent()
       setStatus('success')
       form.reset()
     } catch {
