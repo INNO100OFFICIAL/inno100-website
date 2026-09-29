@@ -1,11 +1,20 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { type Article } from '@/lib/articles'
 
 export default function NewsPageClient({ articles }: { articles: Article[] }) {
-  const [activeTab, setActiveTab] = useState<'videos' | 'articles'>('articles')
+  const searchParams = useSearchParams()
+  const initialTab = searchParams.get('type') === 'videos' ? 'videos' : 'articles'
+  const [activeTab, setActiveTab] = useState<'videos' | 'articles'>(initialTab)
+
+  // The navbar dropdown links to /news?type=videos|articles. Since this page
+  // doesn't remount on a same-page query-string change, react to it here too.
+  useEffect(() => {
+    setActiveTab(searchParams.get('type') === 'videos' ? 'videos' : 'articles')
+  }, [searchParams])
 
   const videos = articles.filter(a => a.type === 'video')
   const articlesList = articles.filter(a => a.type !== 'video')

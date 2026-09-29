@@ -6,6 +6,10 @@ import { useState } from 'react'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  // Desktop-only: hover/click reveals Articles/Videos under "Latest Updates"
+  // instead of the plain link jumping straight to /news. Mirrors the same
+  // Articles/Videos split the /news page itself offers via its dropdown.
+  const [updatesOpen, setUpdatesOpen] = useState(false)
 
   return (
     <nav className="fixed top-0 w-full bg-white z-50 border-b border-gray-200">
@@ -35,9 +39,39 @@ export default function Navbar() {
             <Link href="/media" className="text-sm hover:text-gray-600 transition">
               Media Centre
             </Link>
-            <Link href="/news" className="text-sm hover:text-gray-600 transition">
-              Latest Updates
-            </Link>
+            <div
+              className="relative"
+              onMouseEnter={() => setUpdatesOpen(true)}
+              onMouseLeave={() => setUpdatesOpen(false)}
+            >
+              <Link
+                href="/news"
+                className="text-sm hover:text-gray-600 transition flex items-center gap-1"
+              >
+                Latest Updates
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </Link>
+              {updatesOpen && (
+                <div className="absolute top-full left-0 pt-2 w-40">
+                  <div className="bg-white border border-gray-200 rounded-md shadow-lg overflow-hidden">
+                    <Link
+                      href="/news?type=articles"
+                      className="block px-4 py-2.5 text-sm hover:bg-gray-50 transition"
+                    >
+                      Articles
+                    </Link>
+                    <Link
+                      href="/news?type=videos"
+                      className="block px-4 py-2.5 text-sm hover:bg-gray-50 transition"
+                    >
+                      Videos
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
             <Link href="/contact" className="text-sm hover:text-gray-600 transition">
               Contact Us
             </Link>
@@ -64,6 +98,8 @@ export default function Navbar() {
             <Link href="/visit" className="block py-2 text-sm">Visit</Link>
             <Link href="/media" className="block py-2 text-sm">Media Centre</Link>
             <Link href="/news" className="block py-2 text-sm">Latest Updates</Link>
+            <Link href="/news?type=articles" className="block py-2 pl-4 text-sm text-gray-600">— Articles</Link>
+            <Link href="/news?type=videos" className="block py-2 pl-4 text-sm text-gray-600">— Videos</Link>
             <Link href="/contact" className="block py-2 text-sm">Contact Us</Link>
           </div>
         )}

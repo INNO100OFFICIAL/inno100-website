@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { getAllArticles } from '@/lib/articles'
 import NewsPageClient from './news-client'
 
@@ -91,7 +92,11 @@ export default function NewsPage() {
         </div>
       </section>
 
-      <NewsPageClient articles={articles} />
+      {/* useSearchParams() in NewsPageClient (reads ?type= from the navbar
+          dropdown) requires a Suspense boundary during static export. */}
+      <Suspense fallback={null}>
+        <NewsPageClient articles={articles} />
+      </Suspense>
     </div>
   )
 }
