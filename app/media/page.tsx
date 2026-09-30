@@ -392,7 +392,7 @@ export default function Media() {
       id: 40,
       title: 'AI Meets 3D Printing: INNO100 Featured in Shenzhen Manufacturing Report',
       date: '2026-09-29',
-      source: 'Sohu (热闻瞭望台)',
+      source: 'Sohu',
       excerpt: 'Reports describe visitors at INNO100\'s Shenzhen Bay flagship store watching an AI-optimized metal-cutting demonstration: a titanium blank shaped in real time as a nearby screen tracked the underlying 3D model, with the finished piece showing an 18.7% weight reduction and a 23% gain in stiffness — an ordinary sight, the report notes, in Shenzhen\'s manufacturing sector today.',
       image: '/images/news/ai-3d-printing-inno100.png',
       url: 'https://m.sohu.com/a/1082048356_122066679',
