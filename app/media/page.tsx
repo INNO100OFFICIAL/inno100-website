@@ -388,6 +388,15 @@ export default function Media() {
       image: '/images/media/39.jpg',
       url: 'https://www.geekpark.net/news/370301',
     },
+    {
+      id: 40,
+      title: 'AI Meets 3D Printing: INNO100 Featured in Shenzhen Manufacturing Report',
+      date: '2026-09-29',
+      source: 'Sohu (热闻瞭望台)',
+      excerpt: 'A report on the AI-driven transformation of Shenzhen\'s 3D printing industry opens at INNO100, describing visitors watching a live metal-cutting demonstration at the Shenzhen Bay flagship store before tracing how AI is reshaping design, materials and production across the city\'s manufacturing sector.',
+      image: '/images/news/ai-3d-printing-inno100.png',
+      url: 'https://m.sohu.com/a/1082048356_122066679',
+    },
   ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
   const mediaJsonLd = {
