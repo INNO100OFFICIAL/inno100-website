@@ -514,6 +514,19 @@ export default function Visit() {
         </div>
       </section>
 
+      <section className="py-12 bg-white px-4" aria-labelledby="visit-guides-title">
+        <div className="max-w-4xl mx-auto">
+          <h2 id="visit-guides-title" className="text-3xl font-bold mb-3">Guides for Your Shenzhen Tech Visit</h2>
+          <p className="text-gray-600 mb-6">Planning a delegation visit or travelling with family during APEC 2026? Read the relevant guide, then use the booking form to confirm your group’s needs and availability. INNO100 is an independent retail venue.</p>
+          <ul className="space-y-3">
+            <li><a className="underline hover:text-gray-600" href="/guides/2026-apec-delegate-tech-experience-in-shenzhen">APEC 2026: hands-on technology experiences and English group visits</a></li>
+            <li><a className="underline hover:text-gray-600" href="/guides/apec-2026-shenzhen-delegation-hands-on-tech-visit">Planning a hands-on technology stop for a delegation</a></li>
+            <li><a className="underline hover:text-gray-600" href="/guides/apec-2026-shenzhen-tech-stop-accompanying-families">A technology stop for accompanying families</a></li>
+            <li><a className="underline hover:text-gray-600" href="/guides">Browse all INNO100 visit guides</a></li>
+          </ul>
+        </div>
+      </section>
+
       <section className="py-16 bg-white px-4">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold mb-3">Getting Here</h2>
