@@ -397,6 +397,15 @@ export default function Media() {
       image: '/images/news/ai-3d-printing-inno100.png',
       url: 'https://m.sohu.com/a/1082048356_122066679',
     },
+    {
+      id: 41,
+      title: 'Robot Ice Cream, AI Translation Glasses and an Exoskeleton Test Drive at INNO100',
+      date: '2026-10-07',
+      source: 'Everlast Robotics on YouTube',
+      excerpt: 'A German tech channel visits INNO100 in Shenzhen to test the store\'s AI consumer products firsthand — a humanoid robot serving ice cream, live-translating AI glasses, a sleep-tracking smart mattress, and an exoskeleton the host tries on himself — framed as a look at what these products mean for European businesses.',
+      image: '/images/media/1.png',
+      url: 'https://youtu.be/HuE0A5ylKJk',
+    },
   ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
   const mediaJsonLd = {
