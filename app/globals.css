@@ -34,3 +34,23 @@ a {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* Continuous horizontal scroll for the Reviews rail. The track renders its
+   card list twice back-to-back; animating to -50% loops seamlessly instead
+   of snapping. Pauses on hover so a visitor can actually read a card. */
+@keyframes scroll-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll-left {
+  animation: scroll-left 40s linear infinite;
+}
+
+.animate-scroll-left:hover {
+  animation-play-state: paused;
+}

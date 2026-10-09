@@ -332,9 +332,9 @@ export default function Home() {
       <section className="py-20 px-4 overflow-hidden">
         <div className="max-w-5xl mx-auto">
           <div className="section-content mb-12 text-center" style={{ animationDelay: '1s' }}>
-            <div className="flex items-center justify-center gap-3 mb-3">
-              <span className="text-4xl md:text-5xl font-light text-gray-900">4.7</span>
-              <span className="text-2xl text-amber-500" aria-hidden="true">★★★★★</span>
+            <div className="flex items-center justify-center gap-4 mb-3">
+              <span className="text-6xl md:text-7xl font-light text-gray-900">4.7</span>
+              <span className="text-3xl text-amber-500" aria-hidden="true">★★★★★</span>
             </div>
             <p className="text-gray-700">
               Rated on{' '}
@@ -346,39 +346,47 @@ export default function Home() {
               >
                 Dianping
               </a>
-              {/* Review count is a placeholder — swap in the real total alongside the testimonials below. */}
-              , based on [X]+ reviews
+              , based on 13,000+ reviews
             </p>
           </div>
         </div>
 
-        {/* Horizontally scrolling testimonial strip. Content below is placeholder
-            copy, not real visitor quotes — swap each card for an actual review
-            (with permission) before this ships. */}
-        <div className="relative">
+        {/* Horizontally auto-scrolling testimonial strip, centered within the
+            same max-w container as the sections above and below it. Content
+            below is placeholder copy, not real visitor quotes — swap each card
+            for an actual review (with permission) before this ships. */}
+        <div className="relative max-w-5xl mx-auto">
           <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
           <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
-          <div className="flex gap-6 overflow-x-auto pb-4 px-4 scrollbar-hide snap-x">
-            {[
-              { type: 'text', quote: '[Placeholder — real visitor quote goes here.]', name: '[Visitor name]' },
-              { type: 'image', quote: '[Placeholder — review screenshot goes here.]', name: '[Visitor name]' },
-              { type: 'text', quote: '[Placeholder — real visitor quote goes here.]', name: '[Visitor name]' },
-              { type: 'image', quote: '[Placeholder — review screenshot goes here.]', name: '[Visitor name]' },
-              { type: 'text', quote: '[Placeholder — real visitor quote goes here.]', name: '[Visitor name]' },
-            ].map((item, i) => (
-              <div
-                key={i}
-                className="glass-card rounded-2xl p-6 flex-shrink-0 w-72 snap-start"
-              >
-                {item.type === 'image' && (
-                  <div className="w-full h-32 rounded-lg bg-gray-100 border border-dashed border-gray-300 flex items-center justify-center mb-4">
-                    <span className="text-xs text-gray-400">[Screenshot placeholder]</span>
-                  </div>
-                )}
-                <p className="text-gray-700 text-sm mb-3">{item.quote}</p>
-                <p className="text-xs text-gray-500">— {item.name}</p>
-              </div>
-            ))}
+          <div className="overflow-hidden">
+            <div className="flex gap-5 testimonial-track">
+              {[
+                { type: 'text', quote: '[Placeholder — real visitor quote goes here.]', name: '[Visitor name]' },
+                { type: 'image', quote: '[Placeholder — review screenshot goes here.]', name: '[Visitor name]' },
+                { type: 'text', quote: '[Placeholder — real visitor quote goes here.]', name: '[Visitor name]' },
+                { type: 'image', quote: '[Placeholder — review screenshot goes here.]', name: '[Visitor name]' },
+                { type: 'text', quote: '[Placeholder — real visitor quote goes here.]', name: '[Visitor name]' },
+                // Duplicated so the track can loop seamlessly at -50%.
+                { type: 'text', quote: '[Placeholder — real visitor quote goes here.]', name: '[Visitor name]' },
+                { type: 'image', quote: '[Placeholder — review screenshot goes here.]', name: '[Visitor name]' },
+                { type: 'text', quote: '[Placeholder — real visitor quote goes here.]', name: '[Visitor name]' },
+                { type: 'image', quote: '[Placeholder — review screenshot goes here.]', name: '[Visitor name]' },
+                { type: 'text', quote: '[Placeholder — real visitor quote goes here.]', name: '[Visitor name]' },
+              ].map((item, i) => (
+                <div
+                  key={i}
+                  className={`glass-card rounded-2xl p-5 flex-shrink-0 ${item.type === 'image' ? 'w-56' : 'w-64'}`}
+                >
+                  {item.type === 'image' && (
+                    <div className="w-full h-24 rounded-lg bg-gray-100 border border-dashed border-gray-300 flex items-center justify-center mb-3">
+                      <span className="text-xs text-gray-400">[Screenshot placeholder]</span>
+                    </div>
+                  )}
+                  <p className="text-gray-700 text-sm mb-2">{item.quote}</p>
+                  <p className="text-xs text-gray-500">— {item.name}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
