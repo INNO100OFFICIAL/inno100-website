@@ -336,17 +336,19 @@ export default function Home() {
               <span className="text-6xl md:text-7xl font-light text-gray-900">4.7</span>
               <span className="text-3xl text-amber-500" aria-hidden="true">★★★★★</span>
             </div>
-            <p className="text-gray-700">
-              Rated on{' '}
+            <p className="text-gray-700 mb-4">
+              Based on{' '}
               <a
                 href="https://www.dianping.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline hover:text-gray-900 transition"
               >
-                Dianping
+                512,780+ innovator visits
               </a>
-              , based on 13,000+ reviews
+            </p>
+            <p className="text-2xl md:text-3xl font-light text-gray-900">
+              Global hardware innovations meet real audiences here
             </p>
           </div>
         </div>
@@ -361,27 +363,22 @@ export default function Home() {
           <div className="overflow-hidden">
             <div className="flex gap-5 testimonial-track">
               {[
-                { type: 'text', quote: '[Placeholder — real visitor quote goes here.]', name: '[Visitor name]' },
-                { type: 'image', quote: '[Placeholder — review screenshot goes here.]', name: '[Visitor name]' },
-                { type: 'text', quote: '[Placeholder — real visitor quote goes here.]', name: '[Visitor name]' },
-                { type: 'image', quote: '[Placeholder — review screenshot goes here.]', name: '[Visitor name]' },
-                { type: 'text', quote: '[Placeholder — real visitor quote goes here.]', name: '[Visitor name]' },
+                { quote: 'Walking through Inno100 feels like exploring the future.', name: 'MvgicPassport · Trip.com Moments' },
+                { quote: 'You can try flying cameras, 360 cameras, headphones and quirky design pieces.', name: 'noofficetoday · Trip.com Moments' },
+                { quote: 'So many innovative products to explore—super inspiring! If you\'re in Shenzhen, it\'s definitely worth a visit.', name: 'Yasmine Win · Instagram' },
+                { quote: 'For me, INNO100 is therefore less a conventional showroom and more an interesting ‘window’ into today’s hardware and startup ecosystem.', name: 'Wei Zhang' },
+                { quote: 'At INNO100, digital campaign pages transform directly into physical inventory—giving international buyers a real-world playground for tomorrow’s consumer hardware.', name: 'Ashley Dudarenok · LinkedIn' },
                 // Duplicated so the track can loop seamlessly at -50%.
-                { type: 'text', quote: '[Placeholder — real visitor quote goes here.]', name: '[Visitor name]' },
-                { type: 'image', quote: '[Placeholder — review screenshot goes here.]', name: '[Visitor name]' },
-                { type: 'text', quote: '[Placeholder — real visitor quote goes here.]', name: '[Visitor name]' },
-                { type: 'image', quote: '[Placeholder — review screenshot goes here.]', name: '[Visitor name]' },
-                { type: 'text', quote: '[Placeholder — real visitor quote goes here.]', name: '[Visitor name]' },
+                { quote: 'Walking through Inno100 feels like exploring the future.', name: 'MvgicPassport · Trip.com Moments' },
+                { quote: 'You can try flying cameras, 360 cameras, headphones and quirky design pieces.', name: 'noofficetoday · Trip.com Moments' },
+                { quote: 'So many innovative products to explore—super inspiring! If you\'re in Shenzhen, it\'s definitely worth a visit.', name: 'Yasmine Win · Instagram' },
+                { quote: 'For me, INNO100 is therefore less a conventional showroom and more an interesting ‘window’ into today’s hardware and startup ecosystem.', name: 'Wei Zhang' },
+                { quote: 'At INNO100, digital campaign pages transform directly into physical inventory—giving international buyers a real-world playground for tomorrow’s consumer hardware.', name: 'Ashley Dudarenok · LinkedIn' },
               ].map((item, i) => (
                 <div
                   key={i}
-                  className={`glass-card rounded-2xl p-5 flex-shrink-0 ${item.type === 'image' ? 'w-56' : 'w-64'}`}
+                  className="glass-card rounded-2xl p-5 flex-shrink-0 w-64"
                 >
-                  {item.type === 'image' && (
-                    <div className="w-full h-24 rounded-lg bg-gray-100 border border-dashed border-gray-300 flex items-center justify-center mb-3">
-                      <span className="text-xs text-gray-400">[Screenshot placeholder]</span>
-                    </div>
-                  )}
                   <p className="text-gray-700 text-sm mb-2">{item.quote}</p>
                   <p className="text-xs text-gray-500">— {item.name}</p>
                 </div>
