@@ -23,3 +23,14 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+/* Hides the scrollbar on the horizontally-scrolling reviews rail while
+   keeping the element scrollable (used with overflow-x-auto). */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

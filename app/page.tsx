@@ -328,6 +328,61 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Reviews Section */}
+      <section className="py-20 px-4 overflow-hidden">
+        <div className="max-w-5xl mx-auto">
+          <div className="section-content mb-12 text-center" style={{ animationDelay: '1s' }}>
+            <div className="flex items-center justify-center gap-3 mb-3">
+              <span className="text-4xl md:text-5xl font-light text-gray-900">4.7</span>
+              <span className="text-2xl text-amber-500" aria-hidden="true">★★★★★</span>
+            </div>
+            <p className="text-gray-700">
+              Rated on{' '}
+              <a
+                href="https://www.dianping.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-gray-900 transition"
+              >
+                Dianping
+              </a>
+              {/* Review count is a placeholder — swap in the real total alongside the testimonials below. */}
+              , based on [X]+ reviews
+            </p>
+          </div>
+        </div>
+
+        {/* Horizontally scrolling testimonial strip. Content below is placeholder
+            copy, not real visitor quotes — swap each card for an actual review
+            (with permission) before this ships. */}
+        <div className="relative">
+          <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+          <div className="flex gap-6 overflow-x-auto pb-4 px-4 scrollbar-hide snap-x">
+            {[
+              { type: 'text', quote: '[Placeholder — real visitor quote goes here.]', name: '[Visitor name]' },
+              { type: 'image', quote: '[Placeholder — review screenshot goes here.]', name: '[Visitor name]' },
+              { type: 'text', quote: '[Placeholder — real visitor quote goes here.]', name: '[Visitor name]' },
+              { type: 'image', quote: '[Placeholder — review screenshot goes here.]', name: '[Visitor name]' },
+              { type: 'text', quote: '[Placeholder — real visitor quote goes here.]', name: '[Visitor name]' },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="glass-card rounded-2xl p-6 flex-shrink-0 w-72 snap-start"
+              >
+                {item.type === 'image' && (
+                  <div className="w-full h-32 rounded-lg bg-gray-100 border border-dashed border-gray-300 flex items-center justify-center mb-4">
+                    <span className="text-xs text-gray-400">[Screenshot placeholder]</span>
+                  </div>
+                )}
+                <p className="text-gray-700 text-sm mb-3">{item.quote}</p>
+                <p className="text-xs text-gray-500">— {item.name}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 px-4 mb-8">
         <div className="max-w-4xl mx-auto glass-card p-12 md:p-16 rounded-3xl section-content" style={{ animationDelay: '1.1s' }}>
