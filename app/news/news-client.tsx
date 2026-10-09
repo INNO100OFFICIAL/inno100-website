@@ -97,31 +97,15 @@ export default function NewsPageClient({ articles }: { articles: Article[] }) {
   return (
     <section className="bg-white px-4 pb-16">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-10">
-          <div className="space-y-16">
-            <div ref={articlesSectionRef}>
-              <h2 className="text-2xl font-bold mb-8 pb-4 border-b">Articles</h2>
-              <ContentGrid items={articlesList} emptyLabel="No articles yet." />
-            </div>
-            <div ref={videosSectionRef}>
-              <h2 className="text-2xl font-bold mb-8 pb-4 border-b">Videos</h2>
-              <ContentGrid items={videos} emptyLabel="No videos yet." />
-            </div>
+        <div className="space-y-16">
+          <div ref={articlesSectionRef}>
+            <h2 className="text-2xl font-bold mb-8 pb-4 border-b">Articles</h2>
+            <ContentGrid items={articlesList} emptyLabel="No articles yet." />
           </div>
-
-          {/*
-            Featured Content rail — placeholder only. Per instruction, this
-            stays empty until there's real featured content to put here; the
-            column exists now so the layout doesn't need reshaping later.
-          */}
-          <aside className="hidden lg:block">
-            <p className="text-xs font-semibold text-gray-400 tracking-wide uppercase mb-4">
-              Featured Content
-            </p>
-            <div className="border border-dashed border-gray-200 rounded-lg p-6 text-sm text-gray-400">
-              Coming soon.
-            </div>
-          </aside>
+          <div ref={videosSectionRef}>
+            <h2 className="text-2xl font-bold mb-8 pb-4 border-b">Videos</h2>
+            <ContentGrid items={videos} emptyLabel="No videos yet." />
+          </div>
         </div>
       </div>
     </section>
