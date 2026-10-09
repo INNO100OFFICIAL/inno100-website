@@ -337,15 +337,7 @@ export default function Home() {
               <span className="text-3xl text-amber-500" aria-hidden="true">★★★★★</span>
             </div>
             <p className="text-gray-700 mb-4">
-              Based on{' '}
-              <a
-                href="https://www.dianping.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline hover:text-gray-900 transition"
-              >
-                512,780+ innovator visits
-              </a>
+              Based on 512,780+ innovator visits
             </p>
             <p className="text-2xl md:text-3xl font-light text-gray-900">
               Global hardware innovations meet real audiences here
@@ -361,7 +353,7 @@ export default function Home() {
           <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
           <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
           <div className="overflow-hidden">
-            <div className="flex gap-5 testimonial-track">
+            <div className="flex gap-5 animate-scroll-left">
               {[
                 { quote: 'Walking through Inno100 feels like exploring the future.', name: 'MvgicPassport · Trip.com Moments' },
                 { quote: 'You can try flying cameras, 360 cameras, headphones and quirky design pieces.', name: 'noofficetoday · Trip.com Moments' },
