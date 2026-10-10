@@ -82,10 +82,10 @@ const events = [
  * assistants without being serialised into the client bundle.
  */
 export default function MenuTabs({
-  featured,
+  picks,
   catalogue,
 }: {
-  featured: ReactNode
+  picks: ReactNode
   catalogue: ReactNode
 }) {
   const [activeTab, setActiveTab] = useState<'products' | 'events' | 'reviews'>('products')
@@ -167,7 +167,7 @@ export default function MenuTabs({
         </div>
 
         {/* ── Featured Products (server-rendered) ── */}
-        {activeTab === 'products' && featured}
+        {activeTab === 'products' && picks}
 
         {/* ── Partners Section ── */}
         {activeTab === 'products' && (
