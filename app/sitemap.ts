@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '',            // Home
     '/about',      // About Us
     '/menu',       // Menu
+    '/guides',     // Published visit guides; individual URLs are in /guides/sitemap.xml
     '/visit',      // Plan Your China Tech Visit
     '/media',      // Media Centre
     '/contact',    // Contact Us

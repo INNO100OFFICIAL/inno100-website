@@ -36,6 +36,7 @@ export default function Navbar() {
             <Link href="/visit" className="text-sm hover:text-gray-600 transition">
               Visit
             </Link>
+            <a href="/guides" className="text-sm hover:text-gray-600 transition">Visit Guides</a>
             <Link href="/media" className="text-sm hover:text-gray-600 transition">
               Media Centre
             </Link>
@@ -96,6 +97,7 @@ export default function Navbar() {
             <Link href="/about" className="block py-2 text-sm">About Us</Link>
             <Link href="/menu" className="block py-2 text-sm">Explore Products</Link>
             <Link href="/visit" className="block py-2 text-sm">Visit</Link>
+            <a href="/guides" className="block py-2 text-sm">Visit Guides</a>
             <Link href="/media" className="block py-2 text-sm">Media Centre</Link>
             <Link href="/news" className="block py-2 text-sm">Latest Updates</Link>
             <Link href="/news?type=articles" className="block py-2 pl-4 text-sm text-gray-600">— Articles</Link>
