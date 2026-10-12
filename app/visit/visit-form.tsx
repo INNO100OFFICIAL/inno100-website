@@ -167,6 +167,33 @@ export default function VisitForm() {
         </div>
 
         <div>
+          <label className="block text-sm font-medium mb-2">
+            Visit Type
+          </label>
+          <div className="space-y-2">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="radio"
+                name="visit_type"
+                value="Free Self-guided Visit"
+                defaultChecked
+                className="h-4 w-4 border-gray-300 text-black focus:ring-black"
+              />
+              <span className="text-sm">Free Self-guided Visit</span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="radio"
+                name="visit_type"
+                value="Paid Consultation & Guided Service"
+                className="h-4 w-4 border-gray-300 text-black focus:ring-black"
+              />
+              <span className="text-sm">Paid Consultation &amp; Guided Service</span>
+            </label>
+          </div>
+        </div>
+
+        <div>
           <label htmlFor="visit-group-size" className="block text-sm font-medium mb-2">
             Group Size
           </label>
