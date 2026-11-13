@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import Image from 'next/image'
 import VisitForm from './visit-form'
 
 const SITE_URL = 'https://inno100.ai'
@@ -436,6 +437,16 @@ export default function Visit() {
             Come experience the future of consumer technology, hands-on in Shenzhen.
             100+ global innovations. Real demos. New arrivals every week.
           </p>
+
+          <div className="mt-8 flex justify-center">
+            <Image
+              src="/images/visit/closure-notice-nov-2026.png"
+              alt="INNO100 will be closed November 17–19, 2026, and reopens November 20 at 10:00 AM"
+              width={360}
+              height={450}
+              className="rounded-2xl w-full max-w-xs h-auto"
+            />
+          </div>
 
           <div className="mt-10 grid gap-4 sm:grid-cols-3 text-left">
             {VISIT_TYPES.map((type) => (
