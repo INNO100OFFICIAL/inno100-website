@@ -271,9 +271,18 @@ export default function MenuPage() {
           <p className="text-lg text-gray-700">
             See it. Try it. Take the future home.
           </p>
+          <div className="mt-6 flex justify-center">
+            <Image
+              src="/images/visit/closure-notice-nov-2026.png"
+              alt="INNO100 will be closed November 17–19, 2026, and reopens November 20 at 10:00 AM"
+              width={360}
+              height={450}
+              className="rounded-2xl w-full max-w-xs h-auto"
+            />
+          </div>
           <Link
             href="/visit"
-            className="mt-4 inline-block px-6 py-2.5 rounded-lg font-medium text-white bg-gray-900 hover:bg-gray-700 transition"
+            className="mt-6 inline-block px-6 py-2.5 rounded-lg font-medium text-white bg-gray-900 hover:bg-gray-700 transition"
           >
             Plan Your Visit
           </Link>
